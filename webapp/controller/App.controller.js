@@ -1,148 +1,125 @@
 sap.ui.define([
-	"sap/ui/Device",
+	"sap/m/MessageToast",
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator",
-	"sap/ui/model/json/JSONModel"
-], function(Device, Controller, Filter, FilterOperator, JSONModel) {
+	"sap/ui/Device",
+	"sap/base/Log"
+], function (MessageToast, Controller, Device, Log) {
 	"use strict";
 
-	return Controller.extend("sap.ui.demo.todo.controller.App", {
+	return Controller.extend("sap.m.sample.SplitApp.C", {
 
-		onInit: function() {
-			this.aSearchFilters = [];
-			this.aTabFilters = [];
-
-			this.getView().setModel(new JSONModel({
-				isMobile: Device.browser.mobile,
-				filterText: undefined
-			}), "view");
-		},
-
-		/**
-		 * Adds a new todo item to the bottom of the list.
-		 */
-		addTodo: function() {
-			var oModel = this.getView().getModel();
-			var aTodos = oModel.getProperty("/todos").map(function (oTodo) { return Object.assign({}, oTodo); });
-
-			aTodos.push({
-				title: oModel.getProperty("/newTodo"),
-				completed: false
+		onInit: function () {
+			this.getSplitAppObj().setHomeIcon({
+				'phone': 'phone-icon.png',
+				'tablet': 'tablet-icon.png',
+				'icon': 'desktop.ico'
 			});
 
-			oModel.setProperty("/todos", aTodos);
-			oModel.setProperty("/newTodo", "");
+			Device.orientation.attachHandler(this.onOrientationChange, this);
+			//      1.Get the id of the VizFrame
+		var oVizFrame = this.getView().byId("idpiechart");
+
+		//      2.Create a JSON Model and set the data
+				var oModel = new sap.ui.model.json.JSONModel();
+				var data = {
+					'Vaccine' : [{
+						  "Vaccination": "Dose 1",
+						  "Count": "156842545"
+						}, {
+						  "Vaccination": "Dose 2",
+						  "Count": "42281658"
+						}, {
+						  "Vaccination": "Not Vaccinated",
+						  "Count": "1153518077"
+						}]};
+				oModel.setData(data);
+
+		//      3. Create Viz dataset to feed to the data to the graph
+				var oDataset = new sap.viz.ui5.data.FlattenedDataset({
+					dimensions : [{
+							name : 'Vaccination',
+						value : "{Vaccination}"}],
+
+					measures : [{
+						name : 'Count',
+						value : '{Count}'} ],
+
+					data : {
+						path : "/Vaccine"
+					}
+				});
+				oVizFrame.setDataset(oDataset);
+				oVizFrame.setModel(oModel);
+
+		//      4.Set Viz properties
+				oVizFrame.setVizProperties({
+					title:{
+						text : "Vaccination Chart India"
+					},
+					plotArea: {
+						colorPalette : d3.scale.category20().range(),
+						drawingEffect: "normal"
+						}});
+
+				var feedSize = new sap.viz.ui5.controls.common.feeds.FeedItem({
+					  'uid': "size",
+					  'type': "Measure",
+					  'values': ["Count"]
+					}),
+					feedColor = new sap.viz.ui5.controls.common.feeds.FeedItem({
+					  'uid': "color",
+					  'type': "Dimension",
+					  'values': ["Vaccination"]
+					});
+				oVizFrame.addFeed(feedSize);
+				oVizFrame.addFeed(feedColor);
 		},
 
-		/**
-		 * Removes all completed items from the todo list.
-		 */
-		clearCompleted: function() {
-			var oModel = this.getView().getModel();
-			var aTodos = oModel.getProperty("/todos").map(function (oTodo) { return Object.assign({}, oTodo); });
+		onExit: function () {
+			Device.orientation.detachHandler(this.onOrientationChange, this);
+		},
 
-			var i = aTodos.length;
-			while (i--) {
-				var oTodo = aTodos[i];
-				if (oTodo.completed) {
-					aTodos.splice(i, 1);
-				}
+		onOrientationChange: function (mParams) {
+			var sMsg = "Orientation now is: " + (mParams.landscape ? "Landscape" : "Portrait");
+			MessageToast.show(sMsg, { duration: 5000 });
+		},
+
+		onPressNavToDetail: function () {
+			this.getSplitAppObj().to(this.createId("detailDetail"));
+		},
+
+		onPressDetailBack: function () {
+			this.getSplitAppObj().backDetail();
+		},
+
+		onPressMasterBack: function () {
+			this.getSplitAppObj().backMaster();
+		},
+
+		onPressGoToMaster: function () {
+			this.getSplitAppObj().toMaster(this.createId("master2"));
+		},
+
+		onListItemPress: function (oEvent) {
+			var sToPageId = oEvent.getParameter("listItem").getCustomData()[0].getValue();
+
+			this.getSplitAppObj().toDetail(this.createId(sToPageId));
+		},
+
+		onPressModeBtn: function (oEvent) {
+			var sSplitAppMode = oEvent.getSource().getSelectedButton().getCustomData()[0].getValue();
+
+			this.getSplitAppObj().setMode(sSplitAppMode);
+			MessageToast.show("Split Container mode is changed to: " + sSplitAppMode, { duration: 5000 });
+		},
+
+		getSplitAppObj: function () {
+			var result = this.byId("SplitAppDemo");
+			if (!result) {
+				Log.info("SplitApp object can't be found");
 			}
-
-			oModel.setProperty("/todos", aTodos);
-		},
-
-		/**
-		 * Updates the number of items not yet completed
-		 */
-		updateItemsLeftCount: function() {
-			var oModel = this.getView().getModel();
-			var aTodos = oModel.getProperty("/todos") || [];
-
-			var iItemsLeft = aTodos.filter(function(oTodo) {
-				return oTodo.completed !== true;
-			}).length;
-
-			oModel.setProperty("/itemsLeftCount", iItemsLeft);
-		},
-
-		/**
-		 * Trigger search for specific items. The removal of items is disable as long as the search is used.
-		 * @param {sap.ui.base.Event} oEvent Input changed event
-		 */
-		onSearch: function(oEvent) {
-			var oModel = this.getView().getModel();
-
-			// First reset current filters
-			this.aSearchFilters = [];
-
-			// add filter for search
-			this.sSearchQuery = oEvent.getSource().getValue();
-			if (this.sSearchQuery && this.sSearchQuery.length > 0) {
-				oModel.setProperty("/itemsRemovable", false);
-				var filter = new Filter("title", FilterOperator.Contains, this.sSearchQuery);
-				this.aSearchFilters.push(filter);
-			} else {
-				oModel.setProperty("/itemsRemovable", true);
-			}
-
-			this._applyListFilters();
-		},
-
-		onFilter: function(oEvent) {
-			// First reset current filters
-			this.aTabFilters = [];
-
-			// add filter for search
-			this.sFilterKey = oEvent.getParameter("item").getKey();
-
-			// eslint-disable-line default-case
-			switch (this.sFilterKey) {
-				case "active":
-					this.aTabFilters.push(new Filter("completed", FilterOperator.EQ, false));
-					break;
-				case "completed":
-					this.aTabFilters.push(new Filter("completed", FilterOperator.EQ, true));
-					break;
-				case "all":
-				default:
-					// Don't use any filter
-			}
-
-			this._applyListFilters();
-		},
-
-		_applyListFilters: function() {
-			var oList = this.byId("todoList");
-			var oBinding = oList.getBinding("items");
-
-			oBinding.filter(this.aSearchFilters.concat(this.aTabFilters), "todos");
-
-			var sI18nKey;
-			if (this.sFilterKey && this.sFilterKey !== "all") {
-				if (this.sFilterKey === "active") {
-					sI18nKey = "ACTIVE_ITEMS";
-				} else {
-					// completed items: sFilterKey = "completed"
-					sI18nKey = "COMPLETED_ITEMS";
-				}
-				if (this.sSearchQuery) {
-					sI18nKey += "_CONTAINING";
-				}
-			} else if (this.sSearchQuery) {
-				sI18nKey = "ITEMS_CONTAINING";
-			}
-
-			var sFilterText;
-			if (sI18nKey) {
-				var oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
-				sFilterText = oResourceBundle.getText(sI18nKey, [this.sSearchQuery]);
-			}
-
-			this.getView().getModel("view").setProperty("/filterText", sFilterText);
-		},
+			return result;
+		}
 
 	});
-
 });
