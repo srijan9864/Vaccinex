@@ -2,13 +2,11 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/Device",
-	"sap/base/Log",
-	"sap/ui/demo/model/formatter"
-], function (MessageToast, Controller, Device, Log, formatter) {
+	"sap/base/Log"
+], function (MessageToast, Controller, Device, Log) {
 	"use strict";
 
 	return Controller.extend("sap.m.sample.SplitApp.C", {
-		formatter: formatter,
 		onInit: function () {
 			this.getSplitAppObj().setHomeIcon({
 				'phone': 'phone-icon.png',
