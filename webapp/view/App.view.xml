@@ -1,65 +1,177 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:viz="sap.viz.ui5.controls" xmlns="sap.m" xmlns:f="sap.f" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="sap.ui.demo.todo.controller.App" displayBlock="true">
-		<App>
-			<Page>
-				<SplitApp
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:viz="sap.viz.ui5.controls"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	controllerName="sap.ui.demo.todo.controller.App"
+	displayBlock="true"
+>
+	<App>
+		<Page>
+			<SplitApp
 				id="SplitAppDemo"
 				initialDetail="detail"
-				initialMaster="master">
+				initialMaster="master"
+			>
 				<detailPages>
 					<Page
 						id="detail"
 						title="Vaccinex"
-						backgroundDesign= "Solid">
+						backgroundDesign="Solid"
+					>
 						<content>
-							<FlexBox justifyContent="Center" alignItems="Start">				
-							  <items>
-								<viz:VizFrame xmlns="sap.viz" id="idpiechart" vizType="pie"/>			
-							 </items> 
+							<FlexBox
+								justifyContent="Center"
+								alignItems="Start"
+							>
+								<items>
+									<viz:VizFrame
+										xmlns="sap.viz"
+										id="idpiechart"
+										vizType="pie"
+									/>
+								</items>
 							</FlexBox>
-							</content>
+						</content>
 					</Page>
 					<Page
 						id="detailDetail"
 						title="Detail Detail"
-						backgroundDesign= "Solid"
+						backgroundDesign="Solid"
 						showNavButton="true"
-						navButtonPress=".onPressDetailBack">
+						navButtonPress=".onPressDetailBack"
+					>
 						<VBox class="sapUiSmallMargin">
-							<Label text="This is Detail Page2" />
-							<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour." />
-							<RadioButtonGroup columns="1" width="500px" class="sapUiMediumMarginBottom" select=".onPressModeBtn">
-								<RadioButton id="RB1-1" text="show/hide" selected="true" custom:splitAppMode="ShowHideMode" />
-								<RadioButton id="RB1-2" text="stretch/compress" custom:splitAppMode="StretchCompressMode" />
-								<RadioButton id="RB1-3" text="hide" custom:splitAppMode="HideMode" />
-								<RadioButton id="RB1-4" text="popover" custom:splitAppMode="PopoverMode" />
+							<Label text="This is Detail Page2"/>
+							<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour."/>
+							<RadioButtonGroup
+								columns="1"
+								width="500px"
+								class="sapUiMediumMarginBottom"
+								select=".onPressModeBtn"
+							>
+								<RadioButton
+									id="RB1-1"
+									text="show/hide"
+									selected="true"
+									custom:splitAppMode="ShowHideMode"
+								/>
+								<RadioButton
+									id="RB1-2"
+									text="stretch/compress"
+									custom:splitAppMode="StretchCompressMode"
+								/>
+								<RadioButton
+									id="RB1-3"
+									text="hide"
+									custom:splitAppMode="HideMode"
+								/>
+								<RadioButton
+									id="RB1-4"
+									text="popover"
+									custom:splitAppMode="PopoverMode"
+								/>
 							</RadioButtonGroup>
 						</VBox>
 					</Page>
 					<Page
 						id="detail2"
 						title="Detail 3 Page"
-						backgroundDesign= "Solid"
+						backgroundDesign="Solid"
+						showNavButton="true"
+						navButtonPress=".onPressDetailBack"
+					>
+						<Label text="This is Detail Page3"/>
+						<Input/>
+						<Label text="Label 2"/>
+						<Input/>
+						<Label text="Label 3"/>
+						<Input/>
+						<Label text="Label 4"/>
+						<Input/>
+						<Label text="Label 5"/>
+						<Input/>
+					</Page>
+					<Page
+						id="detail3"
+						title="Search Slots by Pincode"
+						backgroundDesign="Solid"
 						showNavButton="true"
 						navButtonPress=".onPressDetailBack">
-						<Label text="This is Detail Page3" />
-						<Input/>
-						<Label text="Label 2" />
-						<Input/>
-						<Label text="Label 3" />
-						<Input/>
-						<Label text="Label 4" />
-						<Input/>
-						<Label text="Label 5" />
-						<Input/>
+						<FlexBox justifyContent="Center" alignItems="Start" >
+							<items>
+								<Input id = "pincode" maxLength="6" type="Number" placeholder = " Enter Pincode" />
+								<Button type ="Accept" text="Search" press="onBtnPress"></Button>
+							</items>
+						</FlexBox>
+						<CheckBox
+							text="Option a"
+							selected="true"
+						/>
+						<CheckBox text="Option a"/>
+						<CheckBox text="Option a"/>
+						<VBox class="sapUiSmallMargin">
+							<Table id="tableId" inset="false" items="{/centers}">
+								<columns>
+									<Column width="12em">
+										<ObjectIdentifier text="Center"/>
+									</Column>
+									<Column>
+										<Text text="{dates>/dates/today}"/>
+									</Column>
+									<Column>
+										<Text text="{dates>/dates/today_1}"/>
+									</Column>
+									<Column>
+										<ObjectNumber number="{dates>/dates/today_2}"/>
+									</Column>
+									<Column>
+										<ObjectNumber number="{dates>/dates/today_3}"/>
+									</Column>
+									<Column>
+										<ObjectNumber number="{dates>/dates/today_4}"/>
+									</Column>
+									<Column>
+										<ObjectNumber number="{dates>/dates/today_5}"/>
+									</Column>
+									<Column>
+										<ObjectNumber number="{dates>/dates/today_6}"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<ObjectIdentifier title="{name}"/>
+											<ObjectIdentifier title="{name}"/>
+											<ObjectIdentifier title="{name}"/>
+											<ObjectIdentifier title="{name}"/>
+											<ObjectIdentifier title="{name}"/>
+											<ObjectIdentifier title="{name}"/>
+											<ObjectIdentifier title="{name}"/>
+											<ObjectIdentifier title="{name}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+	</VBox>
 					</Page>
 				</detailPages>
 				<masterPages>
 					<Page
 						id="master"
 						title="Navigation Menu"
-						backgroundDesign= "List">
+						backgroundDesign="List"
+					>
 						<List>
-							<StandardListItem title="Find a Vaccine Slot" type="Navigation" press=".onPressGoToMaster" />
+							<StandardListItem
+								title="Find a Vaccine Slot"
+								type="Navigation"
+								press=".onPressGoToMaster"
+							/>
 						</List>
 					</Page>
 					<Page
@@ -67,17 +179,30 @@
 						title="Master 2"
 						backgroundDesign="List"
 						showNavButton="true"
-						navButtonPress=".onPressMasterBack">
+						navButtonPress=".onPressMasterBack"
+					>
 						<List itemPress=".onListItemPress">
 							<items>
-								<StandardListItem title="By Pincode" type="Active" custom:to="detail" />
-								<StandardListItem title="By District" type="Active" custom:to="detailDetail" />
-								<StandardListItem title="By Locations" type="Active" custom:to="detail2" />
+								<StandardListItem
+									title="By Pincode"
+									type="Active"
+									custom:to="detail3"
+								/>
+								<StandardListItem
+									title="By District"
+									type="Active"
+									custom:to="detailDetail"
+								/>
+								<StandardListItem
+									title="By Locations"
+									type="Active"
+									custom:to="detail2"
+								/>
 							</items>
 						</List>
 					</Page>
 				</masterPages>
 			</SplitApp>
-			</Page>
-		</App>
+		</Page>
+	</App>
 </mvc:View>

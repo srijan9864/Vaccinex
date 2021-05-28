@@ -1,0 +1,28 @@
+<Table id="productsTable" inset="false" items="/centers" 
+		headerText="Centers vs Slots">
+		<columns>
+			<Column id="productCol" width="12em"><Text text="Center" /></Column>
+			<Column id="today" minScreenWidth="Tablet" demandPopin="true"><Text text="{dates>/dates/today}"/></Column>
+			<Column id="today_1" minScreenWidth="Tablet" demandPopin="true"><Text text="{dates>/dates/today_1}" /></Column>
+			<Column id="today_2" minScreenWidth="Tablet" demandPopin="true"><Text text="{dates>/dates/today_2}" /></Column>
+			<Column id="today_3" minScreenWidth="Tablet" demandPopin="true"><Text text="{dates>/dates/today_3}" /></Column>
+			<Column id="today_4" minScreenWidth="Tablet" demandPopin="true"><Text text="{dates>/dates/today_4}" /></Column>
+			<Column id="today_5" minScreenWidth="Tablet" demandPopin="true"><Text text="{dates>/dates/today_5}" /></Column>
+			<Column id="today_6" minScreenWidth="Tablet" demandPopin="true"><Text text="{dates>/dates/today_6}" /></Column>
+		</columns>
+		<items>
+			<ColumnListItem
+				type="Active"
+				press="onPress">
+				<cells>
+					<Text text="{name}" />
+					<Text text="{name}" />
+					<Text text="{name}" />
+					<Text text="{name}" />
+					<Text text="{name}" />
+					<Text text="{name}" />
+					<Text text="{name}" />
+					<Text text="{name}" />
+				</cells>
+			</ColumnListItem>
+		</items>

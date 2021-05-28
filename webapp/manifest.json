@@ -4,6 +4,16 @@
 		"id": "sap.ui.demo.todo",
 		"type": "application"
 	},
+	"dataSources": {
+		"cowin": {
+			"uri": "http://localhost:3000/https://services.odata.org/V2/Northwind/Northwind.svc/",
+
+			"type": "OData",
+			"settings": {
+				"odataVersion": "2.0"
+			}
+		}
+	},
 	"sap.ui5": {
 		"dependencies": {
 			"minUI5Version": "1.75.0",
