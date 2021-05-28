@@ -2,12 +2,13 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/Device",
-	"sap/base/Log"
-], function (MessageToast, Controller, Device, Log) {
+	"sap/base/Log",
+	"sap/ui/demo/model/formatter"
+], function (MessageToast, Controller, Device, Log, formatter) {
 	"use strict";
 
 	return Controller.extend("sap.m.sample.SplitApp.C", {
-
+		formatter: formatter,
 		onInit: function () {
 			this.getSplitAppObj().setHomeIcon({
 				'phone': 'phone-icon.png',
@@ -69,8 +70,6 @@ sap.ui.define([
 				}]
 			};
 			oModel.setData(data);
-			console.log(oModel);
-
 			   //  3. Create Viz dataset to feed to the data to the graph
 			var oDataset = new sap.viz.ui5.data.FlattenedDataset({
 				dimensions: [{
@@ -192,11 +191,17 @@ sap.ui.define([
 			}
 			var pincode = this.getView().byId("pincode").getValue();
 			var table = this.getView().byId("tableId");
+			var table1 = this.getView().byId("tableId1");
 			console.log(pincode);
-			var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode="+pincode+"&date="+getDate(0);
+			var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode="+pincode+"&date="+getDate(0);
 			var oPinModel = new sap.ui.model.json.JSONModel(sPath);
 			console.log(oPinModel);
-			table.setModel(oPinModel)
+			table.setModel(oPinModel);
+			table1.setModel(oPinModel);
+		},
+
+		available_capacity : function (sValue) {
+			console.log(sValue);
 		}
 
 	});

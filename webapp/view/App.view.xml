@@ -108,56 +108,166 @@
 								<Button type ="Accept" text="Search" press="onBtnPress"></Button>
 							</items>
 						</FlexBox>
+						<FlexBox justifyContent="Center" alignItems="Start" >
 						<CheckBox
-							text="Option a"
+							text="18+"
 							selected="true"
 						/>
-						<CheckBox text="Option a"/>
-						<CheckBox text="Option a"/>
+						<CheckBox text="45+"/>
+						<CheckBox text="Covishield"/>
+						<CheckBox text="Covaxin"/>
+						<CheckBox text="Sputnik V"/>
+						<CheckBox text="Free"/>
+						<CheckBox text="Paid"/>
+					</FlexBox>
 						<VBox class="sapUiSmallMargin">
-							<Table id="tableId" inset="false" items="{/centers}">
+							<Panel expandable="true" headerText="{dates>/dates/today}" width="auto" class="sapUiResponsiveMargin">
+						<content>
+							<Table id="tableId" inset="false" items="{/sessions}">
 								<columns>
-									<Column width="12em">
+									<Column>
 										<ObjectIdentifier text="Center"/>
 									</Column>
 									<Column>
-										<Text text="{dates>/dates/today}"/>
+										<Text text="Availability"/>
 									</Column>
 									<Column>
-										<Text text="{dates>/dates/today_1}"/>
+										<Text text="Age Limit"/>
 									</Column>
 									<Column>
-										<ObjectNumber number="{dates>/dates/today_2}"/>
+										<Text text="Fee Type"/>
 									</Column>
 									<Column>
-										<ObjectNumber number="{dates>/dates/today_3}"/>
+										<Text text="Vaccine"/>
 									</Column>
 									<Column>
-										<ObjectNumber number="{dates>/dates/today_4}"/>
-									</Column>
-									<Column>
-										<ObjectNumber number="{dates>/dates/today_5}"/>
-									</Column>
-									<Column>
-										<ObjectNumber number="{dates>/dates/today_6}"/>
+										<Text text="Book Slot"/>
 									</Column>
 								</columns>
 								<items>
 									<ColumnListItem>
 										<cells>
-											<ObjectIdentifier title="{name}"/>
-											<ObjectIdentifier title="{name}"/>
-											<ObjectIdentifier title="{name}"/>
-											<ObjectIdentifier title="{name}"/>
-											<ObjectIdentifier title="{name}"/>
-											<ObjectIdentifier title="{name}"/>
-											<ObjectIdentifier title="{name}"/>
-											<ObjectIdentifier title="{name}"/>
+											<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+											<ObjectIdentifier title="{path:'available_capacity' , formatter: '.formatter.available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+											<Text text="{min_age_limit}+"/>
+											<Text text="{fee_type}"/>
+											<Text text="{vaccine}"/>
+											<Link text="Book" href="https://www.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
 								</items>
 							</Table>
-	</VBox>
+						</content>
+					</Panel>
+					<Panel expandable="true" headerText="{dates>/dates/today_1}" width="auto" class="sapUiResponsiveMargin">
+						<content>
+							<Table id="tableId1" inset="false" items="{/centers}">
+								<columns>
+									<Column width="12em">
+										<ObjectIdentifier text="Center"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+										</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</content>
+						</Panel>
+						<Panel expandable="true" headerText="{dates>/dates/today_2}" width="auto" class="sapUiResponsiveMargin">
+							<content>
+								<Table id="tableId2" inset="false" items="{/centers}">
+									<columns>
+										<Column width="12em">
+											<ObjectIdentifier text="Center"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+											</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel expandable="true" headerText="{dates>/dates/today_3}" width="auto" class="sapUiResponsiveMargin">
+								<content>
+									<Table id="tableId3" inset="false" items="{/centers}">
+										<columns>
+											<Column width="12em">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+												</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</content>
+								</Panel>
+								<Panel expandable="true" headerText="{dates>/dates/today_4}" width="auto" class="sapUiResponsiveMargin">
+									<content>
+										<Table id="tableId4" inset="false" items="{/centers}">
+											<columns>
+												<Column width="12em">
+													<ObjectIdentifier text="Center"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem>
+													<cells>
+														<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+													</cells>
+													</ColumnListItem>
+												</items>
+											</Table>
+										</content>
+									</Panel>
+									<Panel expandable="true" headerText="{dates>/dates/today_5}" width="auto" class="sapUiResponsiveMargin">
+										<content>
+											<Table id="tableId5" inset="false" items="{/centers}">
+												<columns>
+													<Column width="12em">
+														<ObjectIdentifier text="Center"/>
+													</Column>
+												</columns>
+												<items>
+													<ColumnListItem>
+														<cells>
+															<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+														</cells>
+														</ColumnListItem>
+													</items>
+												</Table>
+											</content>
+										</Panel>
+										<Panel expandable="true" headerText="{dates>/dates/today_6}" width="auto" class="sapUiResponsiveMargin">
+											<content>
+												<Table id="tableId6" inset="false" items="{/centers}">
+													<columns>
+														<Column width="12em">
+															<ObjectIdentifier text="Center"/>
+														</Column>
+													</columns>
+													<items>
+														<ColumnListItem>
+															<cells>
+																<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+															</cells>
+															</ColumnListItem>
+														</items>
+													</Table>
+												</content>
+											</Panel>
+					</VBox>
 					</Page>
 				</detailPages>
 				<masterPages>

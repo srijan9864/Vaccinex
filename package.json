@@ -1,7 +1,7 @@
 {
 	"name": "openui5-sample-app",
 	"version": "0.2.0",
-	"description": "Sample of an OpenUI5 app",
+	"description": "Vaccinex",
 	"private": true,
 	"scripts": {
 		"start": "ui5 serve",
@@ -23,7 +23,6 @@
 		"karma-coverage": "^2.0.3",
 		"karma-ui5": "^2.3.3",
 		"local-web-server": "^4.2.1",
-		"rimraf": "^3.0.2",
-		"myProxy": "^x.y.z"
+		"rimraf": "^3.0.2"
 	}
 }
