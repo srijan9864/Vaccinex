@@ -148,7 +148,7 @@
 									<ColumnListItem>
 										<cells>
 											<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectIdentifier title="{path:'available_capacity' , formatter: '.formatter.available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+											<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 											<Text text="{min_age_limit}+"/>
 											<Text text="{fee_type}"/>
 											<Text text="{vaccine}"/>
@@ -163,17 +163,37 @@
 						<content>
 							<Table id="tableId1" inset="false" items="{/centers}">
 								<columns>
-									<Column width="12em">
+									<Column>
 										<ObjectIdentifier text="Center"/>
+									</Column>
+									<Column>
+										<Text text="Availability"/>
+									</Column>
+									<Column>
+										<Text text="Age Limit"/>
+									</Column>
+									<Column>
+										<Text text="Fee Type"/>
+									</Column>
+									<Column>
+										<Text text="Vaccine"/>
+									</Column>
+									<Column>
+										<Text text="Book Slot"/>
 									</Column>
 								</columns>
 								<items>
 									<ColumnListItem>
 										<cells>
 											<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+											<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+											<Text text="{min_age_limit}+"/>
+											<Text text="{fee_type}"/>
+											<Text text="{vaccine}"/>
+											<Link text="Book" href="https://www.cowin.gov.in/"/>
 										</cells>
-										</ColumnListItem>
-									</items>
+									</ColumnListItem>
+								</items>
 								</Table>
 							</content>
 						</Panel>
@@ -188,7 +208,7 @@
 									<items>
 										<ColumnListItem>
 											<cells>
-												<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 											</cells>
 											</ColumnListItem>
 										</items>
@@ -206,7 +226,7 @@
 										<items>
 											<ColumnListItem>
 												<cells>
-													<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 												</cells>
 												</ColumnListItem>
 											</items>
@@ -224,7 +244,7 @@
 											<items>
 												<ColumnListItem>
 													<cells>
-														<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 													</cells>
 													</ColumnListItem>
 												</items>
@@ -242,7 +262,7 @@
 												<items>
 													<ColumnListItem>
 														<cells>
-															<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 														</cells>
 														</ColumnListItem>
 													</items>
@@ -260,7 +280,7 @@
 													<items>
 														<ColumnListItem>
 															<cells>
-																<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+																<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 															</cells>
 															</ColumnListItem>
 														</items>

@@ -190,12 +190,29 @@ sap.ui.define([
 			var pincode = this.getView().byId("pincode").getValue();
 			var table = this.getView().byId("tableId");
 			var table1 = this.getView().byId("tableId1");
+			var table2 = this.getView().byId("tableId2");
+			var table3 = this.getView().byId("tableId3");
+			var table4 = this.getView().byId("tableId4");
+			var table5 = this.getView().byId("tableId5");
+			var table6 = this.getView().byId("tableId6");
+			var modeArray = [];
 			console.log(pincode);
-			var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode="+pincode+"&date="+getDate(0);
+
+			for ( var i = 0 ; i < 7; i++ ) {
+
+			var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode="+pincode+"&date="+getDate(i);
 			var oPinModel = new sap.ui.model.json.JSONModel(sPath);
-			console.log(oPinModel);
-			table.setModel(oPinModel);
-			table1.setModel(oPinModel);
+			modeArray.push(oPinModel);
+				sPath = "";
+				oPinModel = undefined;
+			}
+			table.setModel(modeArray[0]);
+			table1.setModel(modeArray[1]);
+			table2.setModel(modeArray[2]);
+			table3.setModel(modeArray[3]);
+			table4.setModel(modeArray[4]);
+			table5.setModel(modeArray[5]);
+			table6.setModel(modeArray[6]);
 		},
 
 		available_capacity : function (sValue) {
