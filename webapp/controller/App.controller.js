@@ -27,7 +27,6 @@ sap.ui.define([
 				listMode: (sap.ui.Device.system.phone) ? "None" : "SingleSelectMaster",
 				listItemType: (sap.ui.Device.system.phone) ? "Active" : "Inactive"
 			});
-			oDeviceModel.setDefaultBindingMode("OneWay");
 			this.getView().setModel(oDeviceModel, "device");
 			Device.orientation.attachHandler(this.onOrientationChange, this);
 			function getDate(n) {

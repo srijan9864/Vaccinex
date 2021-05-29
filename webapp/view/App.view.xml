@@ -27,6 +27,8 @@
 						id="detail"
 						title="Vaccination Statistics India"
 						backgroundDesign="Solid"
+						showNavButton="{device>/isPhone}"
+						navButtonPress=".onPressDetailBack"
 					>
 						<content>
 
