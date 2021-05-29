@@ -215,7 +215,9 @@ sap.ui.define([
 			var table5 = this.getView().byId("tableId5");
 			var table6 = this.getView().byId("tableId6");
 			var vBox = this.getView().byId("Vbox1");
+			var checboxes = this.getView().byId("checboxpanel");
 			vBox.setVisible(true);
+			checboxes.setVisible(true);
 			var modeArray = [];
 			console.log(pincode);
 
@@ -242,6 +244,50 @@ sap.ui.define([
 			} else {
 				sap.ui.getCore().applyTheme("sap_fiori_3");
 			}
+		},
+
+		onCheckbox: function(oEvent){
+			var filtermodel = new sap.ui.model.json.JSONModel();
+			var filterArray = [];
+			var oData1 = { filter: filterArray };
+			var oFilter;
+			var oBinding = this.getView().byId("tableId").getBinding("items");
+			oBinding.filter([]);
+			if (this.getView().byId("check18").getSelected()){
+				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "18");
+				filterArray.push(oFilter); 
+			}
+			
+			if (this.getView().byId("check45").getSelected()){
+				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "45");
+				filterArray.push(oFilter); 
+			}
+	
+			
+			if (this.getView().byId("checkcovaxin").getSelected()){
+				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "COVAXIN");
+				filterArray.push(oFilter);
+			} 
+			
+			if (this.getView().byId("checkcovishield").getSelected()){
+				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
+				filterArray.push(oFilter);
+			} 
+			
+			if (this.getView().byId("checksputnik").getSelected()){
+				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "SPUTNIK V");
+				filterArray.push(oFilter);
+			} 
+			if (this.getView().byId("checkfree").getSelected()){
+				oFilter= new sap.ui.model.Filter("fee_type", "EQ", "Free");
+				filterArray.push(oFilter);
+			} 
+			
+			if (this.getView().byId("checkpaid").getSelected()){
+				oFilter= new sap.ui.model.Filter("fee_type", "EQ", "Paid");
+				filterArray.push(oFilter);
+			} 
+			oBinding.filter(filterArray);
 		}
 
 	});

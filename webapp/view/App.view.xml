@@ -13,7 +13,7 @@
 <Toolbar>	
 	<ToolbarSpacer/>
 <Label text="Dark Mode" ></Label>
-<Switch id="switch1" state="false" change="onSwitchChange" ></Switch>
+<Switch id="switch1" change="onSwitchChange" ></Switch>
 </Toolbar>
 	<App>
 		<Page>
@@ -116,18 +116,19 @@
 							</items>
 						</FlexBox>
 						<FlexBox justifyContent="Center" alignItems="Start" >
-						<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+						<Panel id="checboxpanel" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region" visible="false">
 							<content>
 						<CheckBox
+						    id = "check18"
 							text="18+"
-							selected="true"
+							select="onCheckbox"
 						/>
-						<CheckBox text="45+"/>
-						<CheckBox text="Covishield"/>
-						<CheckBox text="Covaxin"/>
-						<CheckBox text="Sputnik V"/>
-						<CheckBox text="Free"/>
-						<CheckBox text="Paid"/>
+						<CheckBox id = "check45" text="45+" select="onCheckbox"/>
+						<CheckBox id = "checkcovishield" text="Covishield" select="onCheckbox"/>
+						<CheckBox id = "checkcovaxin" text="Covaxin" select="onCheckbox"/>
+						<CheckBox id = "checksputnik" text="Sputnik V" select="onCheckbox"/>
+						<CheckBox id = "checkfree" text="Free" select="onCheckbox"/>
+						<CheckBox id = "checkpaid" text="Paid" select="onCheckbox"/>
 				</content>
 			</Panel>
 		</FlexBox>
