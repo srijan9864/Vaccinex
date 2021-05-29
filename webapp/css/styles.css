@@ -3,7 +3,10 @@ li[data-todo-item-completed="true"] span {
 	text-decoration: line-through;
 }
 
-.centerinput {
- margin-left: 50%;
+.alignleft {
+	display: block;
+	margin-left: 0px;
+	margin-right: auto;
+
 
 }
