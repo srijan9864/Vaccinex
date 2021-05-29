@@ -19,7 +19,16 @@ sap.ui.define([
 				'tablet': 'tablet-icon.png',
 				'icon': 'desktop.ico'
 			});
-
+			var oDeviceModel = new sap.ui.model.json.JSONModel({
+				isTouch: sap.ui.Device.support.touch,
+				isNoTouch: !sap.ui.Device.support.touch,
+				isPhone: sap.ui.Device.system.phone,
+				isNoPhone: !sap.ui.Device.system.phone,
+				listMode: (sap.ui.Device.system.phone) ? "None" : "SingleSelectMaster",
+				listItemType: (sap.ui.Device.system.phone) ? "Active" : "Inactive"
+			});
+			oDeviceModel.setDefaultBindingMode("OneWay");
+			this.getView().setModel(oDeviceModel, "device");
 			Device.orientation.attachHandler(this.onOrientationChange, this);
 			function getDate(n) {
 				var date = new Date();

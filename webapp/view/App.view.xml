@@ -50,7 +50,7 @@
 						showNavButton="true"
 						navButtonPress=".onPressDetailBack"
 					>
-						<VBox class="sapUiSmallMargin">
+						<VBox class="sapUiResponsiveMargin">
 							<Label text="This is Detail Page2"/>
 							<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour."/>
 							<RadioButtonGroup
@@ -113,7 +113,7 @@
 								<Button type ="Accept" text="Search" press="onBtnPress"></Button>
 							</items>
 						</FlexBox>
-						<FlexBox justifyContent="Center" alignItems="Start" >
+						<FlexBox justifyContent="Center"  class="sapUiResponsiveMargin" >
 						<CheckBox
 							text="18+"
 							selected="true"
@@ -128,31 +128,31 @@
 					<VBox id="Vbox1" class="sapUiResponsiveMargin" visible= "false">
 							<Panel expandable="true" headerText="{dates>/dates/today}" width="auto" class="sapUiResponsiveMargin">
 						<content>
-							<Table id="tableId" inset="false" items="{/sessions}">
+							<Table id="tableId" inset="false" items="{/sessions}" class="sapUiResponsiveMargin">
 								<columns>
-									<Column>
+									<Column demandPopin="true">
 										<ObjectIdentifier text="Center"/>
 									</Column>
-									<Column>
+									<Column demandPopin="true">
 										<Text text="Availability"/>
 									</Column>
-									<Column>
+									<Column demandPopin="false">
 										<Text text="Age Limit"/>
 									</Column>
-									<Column>
+									<Column demandPopin="false">
 										<Text text="Fee Type"/>
 									</Column>
-									<Column>
+									<Column demandPopin="false">
 										<Text text="Vaccine"/>
 									</Column>
-									<Column>
+									<Column demandPopin="true">
 										<Text text="Book Slot"/>
 									</Column>
 								</columns>
 								<items>
 									<ColumnListItem>
 										<cells>
-											<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 											<ObjectIdentifier title="{path:'available_capacity', formatter: '.formatter.available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 											<Text text="{min_age_limit}+"/>
 											<Text text="{fee_type}"/>
@@ -190,7 +190,7 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 											<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 											<Text text="{min_age_limit}+"/>
 											<Text text="{fee_type}"/>
@@ -228,7 +228,7 @@
 									<items>
 										<ColumnListItem>
 											<cells>
-												<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 												<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 												<Text text="{min_age_limit}+"/>
 												<Text text="{fee_type}"/>
@@ -266,7 +266,7 @@
 										<items>
 											<ColumnListItem>
 												<cells>
-													<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 													<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 													<Text text="{min_age_limit}+"/>
 													<Text text="{fee_type}"/>
@@ -304,7 +304,7 @@
 											<items>
 												<ColumnListItem>
 													<cells>
-														<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 														<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 														<Text text="{min_age_limit}+"/>
 														<Text text="{fee_type}"/>
@@ -342,7 +342,7 @@
 												<items>
 													<ColumnListItem>
 														<cells>
-															<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 															<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 															<Text text="{min_age_limit}+"/>
 															<Text text="{fee_type}"/>
@@ -380,7 +380,7 @@
 													<items>
 														<ColumnListItem>
 															<cells>
-																<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+																<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 																<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 																<Text text="{min_age_limit}+"/>
 																<Text text="{fee_type}"/>
@@ -396,22 +396,9 @@
 					</Page>
 				</detailPages>
 				<masterPages>
-					<!-- <Page
-						id="master"
-						title="Navigation Menu"
-						backgroundDesign="List"
-					>
-						<List>
-							<StandardListItem
-								title="Find a Vaccine Slot"
-								type="Navigation"
-								press=".onPressGoToMaster"
-							/>
-						</List>
-					</Page> -->
 					<Page
 						id="master2"
-						title="Navigation Menu"
+						title="Search Vaccination Slots By"
 						backgroundDesign="List"
 					>					
 						<List itemPress=".onListItemPress">
