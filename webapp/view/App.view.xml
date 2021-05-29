@@ -10,6 +10,11 @@
 	controllerName="sap.ui.demo.todo.controller.App"
 	displayBlock="true"
 >
+<Toolbar>	
+	<ToolbarSpacer/>
+<Label text="Dark Mode" ></Label>
+<Switch id="switch1" state="false" change="onSwitchChange" ></Switch>
+</Toolbar>
 	<App>
 		<Page>
 			<SplitApp
@@ -120,7 +125,7 @@
 						<CheckBox text="Free"/>
 						<CheckBox text="Paid"/>
 					</FlexBox>
-						<VBox class="sapUiSmallMargin">
+					<VBox id="Vbox1" class="sapUiResponsiveMargin" visible= "false">
 							<Panel expandable="true" headerText="{dates>/dates/today}" width="auto" class="sapUiResponsiveMargin">
 						<content>
 							<Table id="tableId" inset="false" items="{/sessions}">
@@ -148,7 +153,7 @@
 									<ColumnListItem>
 										<cells>
 											<ObjectIdentifier title="{name} - {fee_type}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+											<ObjectIdentifier title="{path:'available_capacity', formatter: '.formatter.available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
 											<Text text="{min_age_limit}+"/>
 											<Text text="{fee_type}"/>
 											<Text text="{vaccine}"/>
@@ -387,11 +392,11 @@
 													</Table>
 												</content>
 											</Panel>
-					</VBox>
+										</VBox>
 					</Page>
 				</detailPages>
 				<masterPages>
-					<Page
+					<!-- <Page
 						id="master"
 						title="Navigation Menu"
 						backgroundDesign="List"
@@ -403,14 +408,12 @@
 								press=".onPressGoToMaster"
 							/>
 						</List>
-					</Page>
+					</Page> -->
 					<Page
 						id="master2"
-						title="Master 2"
+						title="Navigation Menu"
 						backgroundDesign="List"
-						showNavButton="true"
-						navButtonPress=".onPressMasterBack"
-					>
+					>					
 						<List itemPress=".onListItemPress">
 							<items>
 								<StandardListItem

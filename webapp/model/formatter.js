@@ -6,7 +6,10 @@ sap.ui.define([],
 	return {
 
 		available_capacity: function (sValue) {
-			console.log(sValue);
+			if( sValue === '0' ){
+				sValue = 'No Slots';
+				return sValue;
+			}
 		}
 	};
 });

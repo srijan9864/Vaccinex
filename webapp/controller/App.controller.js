@@ -2,11 +2,17 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/Device",
-	"sap/base/Log"
-], function (MessageToast, Controller, Device, Log) {
+	"sap/base/Log",
+	"sap/ui/demo/todo/model/formatter"
+], function (MessageToast,
+	Controller,
+	Device,
+	Log,
+	formatter) {
 	"use strict";
 
-	return Controller.extend("sap.m.sample.SplitApp.C", {
+	return Controller.extend("sap.ui.demo.todo.controller.App.controllers	", {
+		formatter: formatter,
 		onInit: function () {
 			this.getSplitAppObj().setHomeIcon({
 				'phone': 'phone-icon.png',
@@ -68,7 +74,7 @@ sap.ui.define([
 				}]
 			};
 			oModel.setData(data);
-			   //  3. Create Viz dataset to feed to the data to the graph
+			//  3. Create Viz dataset to feed to the data to the graph
 			var oDataset = new sap.viz.ui5.data.FlattenedDataset({
 				dimensions: [{
 					name: 'Vaccination',
@@ -169,7 +175,7 @@ sap.ui.define([
 		isNavigated: function (sNavigatedItemId, sItemId) {
 			return sNavigatedItemId === sItemId;
 		},
-		onBtnPress : function (oEvent) {
+		onBtnPress: function (oEvent) {
 			function getDate(n) {
 				var date = new Date();
 				var today = new Date(date);
@@ -195,14 +201,16 @@ sap.ui.define([
 			var table4 = this.getView().byId("tableId4");
 			var table5 = this.getView().byId("tableId5");
 			var table6 = this.getView().byId("tableId6");
+			var vBox = this.getView().byId("Vbox1");
+			vBox.setVisible(true);
 			var modeArray = [];
 			console.log(pincode);
 
-			for ( var i = 0 ; i < 7; i++ ) {
+			for (var i = 0; i < 7; i++) {
 
-			var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode="+pincode+"&date="+getDate(i);
-			var oPinModel = new sap.ui.model.json.JSONModel(sPath);
-			modeArray.push(oPinModel);
+				var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(i);
+				var oPinModel = new sap.ui.model.json.JSONModel(sPath);
+				modeArray.push(oPinModel);
 				sPath = "";
 				oPinModel = undefined;
 			}
@@ -215,8 +223,12 @@ sap.ui.define([
 			table6.setModel(modeArray[6]);
 		},
 
-		available_capacity : function (sValue) {
-			console.log(sValue);
+		onSwitchChange: function (sValue) {
+			if (this.getView().byId("switch1").getState()) {
+				sap.ui.getCore().applyTheme("sap_fiori_3_dark");
+			} else {
+				sap.ui.getCore().applyTheme("sap_fiori_3");
+			}
 		}
 
 	});
