@@ -68,6 +68,11 @@ sap.ui.define([
 			//      1.Get the id of the VizFrame
 			var oVizFrame = this.getView().byId("idpiechart");
 
+			if (sap.ui.Device.system.phone){
+				oVizFrame.setHeight("400px");
+				oVizFrame.setWidth("400px");
+			}
+
 			//      2.Create a JSON Model and set the data
 			var oModel = new sap.ui.model.json.JSONModel();
 			var data = {

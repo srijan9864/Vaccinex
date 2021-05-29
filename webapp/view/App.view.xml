@@ -20,26 +20,26 @@
 			<SplitApp
 				id="SplitAppDemo"
 				initialDetail="detail"
-				initialMaster="master"
+				initialMaster="master2"
 			>
 				<detailPages>
 					<Page
 						id="detail"
-						title="Vaccinex"
+						title="Vaccination Statistics India"
 						backgroundDesign="Solid"
 					>
 						<content>
+
 							<FlexBox
 								justifyContent="Center"
 								alignItems="Start"
 							>
-								<items>
 									<viz:VizFrame
 										xmlns="sap.viz"
 										id="idpiechart"
 										vizType="pie"
+										legendVisible="true"
 									/>
-								</items>
 							</FlexBox>
 						</content>
 					</Page>
@@ -113,7 +113,9 @@
 								<Button type ="Accept" text="Search" press="onBtnPress"></Button>
 							</items>
 						</FlexBox>
-						<FlexBox justifyContent="Center"  class="sapUiResponsiveMargin" >
+						<FlexBox justifyContent="Center" alignItems="Start" >
+						<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+							<content>
 						<CheckBox
 							text="18+"
 							selected="true"
@@ -124,28 +126,30 @@
 						<CheckBox text="Sputnik V"/>
 						<CheckBox text="Free"/>
 						<CheckBox text="Paid"/>
-					</FlexBox>
+				</content>
+			</Panel>
+		</FlexBox>
 					<VBox id="Vbox1" class="sapUiResponsiveMargin" visible= "false">
 							<Panel expandable="true" headerText="{dates>/dates/today}" width="auto" class="sapUiResponsiveMargin">
 						<content>
-							<Table id="tableId" inset="false" items="{/sessions}" class="sapUiResponsiveMargin">
+							<Table id="tableId" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
 								<columns>
-									<Column demandPopin="true">
+									<Column  importance="High">
 										<ObjectIdentifier text="Center"/>
 									</Column>
-									<Column demandPopin="true">
+									<Column>
 										<Text text="Availability"/>
 									</Column>
-									<Column demandPopin="false">
+									<Column >
 										<Text text="Age Limit"/>
 									</Column>
-									<Column demandPopin="false">
+									<Column >
 										<Text text="Fee Type"/>
 									</Column>
-									<Column demandPopin="false">
+									<Column>
 										<Text text="Vaccine"/>
 									</Column>
-									<Column demandPopin="true">
+									<Column importance="High">
 										<Text text="Book Slot"/>
 									</Column>
 								</columns>
@@ -398,23 +402,28 @@
 				<masterPages>
 					<Page
 						id="master2"
-						title="Search Vaccination Slots By"
+						title="Navigation Menu"
 						backgroundDesign="List"
 					>					
 						<List itemPress=".onListItemPress">
 							<items>
 								<StandardListItem
-									title="By Pincode"
+								title="Vaccination Statistics"
+								type="Active"
+								custom:to="detail"
+							/>
+								<StandardListItem
+									title="Slots By Pincode"
 									type="Active"
 									custom:to="detail3"
 								/>
 								<StandardListItem
-									title="By District"
+									title="Slots By District"
 									type="Active"
 									custom:to="detailDetail"
 								/>
 								<StandardListItem
-									title="By Locations"
+									title="Slots By Locations"
 									type="Active"
 									custom:to="detail2"
 								/>
