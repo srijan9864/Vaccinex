@@ -160,11 +160,11 @@
 									<ColumnListItem>
 										<cells>
 											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectIdentifier title="{path:'available_capacity', formatter: '.formatter.available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 											<Text text="{min_age_limit}+"/>
 											<Text text="{fee_type}"/>
 											<Text text="{vaccine}"/>
-											<Link text="Book" href="https://www.cowin.gov.in/"/>
+											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -173,24 +173,24 @@
 					</Panel>
 					<Panel expandable="true" headerText="{dates>/dates/today_1}" width="auto" class="sapUiResponsiveMargin">
 						<content>
-							<Table id="tableId1" inset="false" items="{/sessions}">
+							<Table id="tableId1" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
 								<columns>
-									<Column>
+									<Column  importance="High">
 										<ObjectIdentifier text="Center"/>
 									</Column>
 									<Column>
 										<Text text="Availability"/>
 									</Column>
-									<Column>
+									<Column >
 										<Text text="Age Limit"/>
 									</Column>
-									<Column>
+									<Column >
 										<Text text="Fee Type"/>
 									</Column>
 									<Column>
 										<Text text="Vaccine"/>
 									</Column>
-									<Column>
+									<Column importance="High">
 										<Text text="Book Slot"/>
 									</Column>
 								</columns>
@@ -198,37 +198,37 @@
 									<ColumnListItem>
 										<cells>
 											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 											<Text text="{min_age_limit}+"/>
 											<Text text="{fee_type}"/>
 											<Text text="{vaccine}"/>
-											<Link text="Book" href="https://www.cowin.gov.in/"/>
+											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
 								</items>
-								</Table>
+							</Table>
 							</content>
 						</Panel>
 						<Panel expandable="true" headerText="{dates>/dates/today_2}" width="auto" class="sapUiResponsiveMargin">
 							<content>
-								<Table id="tableId2" inset="false" items="{/sessions}">
+								<Table id="tableId2" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
 									<columns>
-										<Column>
+										<Column  importance="High">
 											<ObjectIdentifier text="Center"/>
 										</Column>
 										<Column>
 											<Text text="Availability"/>
 										</Column>
-										<Column>
+										<Column >
 											<Text text="Age Limit"/>
 										</Column>
-										<Column>
+										<Column >
 											<Text text="Fee Type"/>
 										</Column>
 										<Column>
 											<Text text="Vaccine"/>
 										</Column>
-										<Column>
+										<Column importance="High">
 											<Text text="Book Slot"/>
 										</Column>
 									</columns>
@@ -236,37 +236,37 @@
 										<ColumnListItem>
 											<cells>
 												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-												<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+												<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 												<Text text="{min_age_limit}+"/>
 												<Text text="{fee_type}"/>
 												<Text text="{vaccine}"/>
-												<Link text="Book" href="https://www.cowin.gov.in/"/>
+												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 											</cells>
 										</ColumnListItem>
 									</items>
-									</Table>
+								</Table>
 								</content>
 							</Panel>
 							<Panel expandable="true" headerText="{dates>/dates/today_3}" width="auto" class="sapUiResponsiveMargin">
 								<content>
-									<Table id="tableId3" inset="false" items="{/sessions}">
+									<Table id="tableId3" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
 										<columns>
-											<Column>
+											<Column  importance="High">
 												<ObjectIdentifier text="Center"/>
 											</Column>
 											<Column>
 												<Text text="Availability"/>
 											</Column>
-											<Column>
+											<Column >
 												<Text text="Age Limit"/>
 											</Column>
-											<Column>
+											<Column >
 												<Text text="Fee Type"/>
 											</Column>
 											<Column>
 												<Text text="Vaccine"/>
 											</Column>
-											<Column>
+											<Column importance="High">
 												<Text text="Book Slot"/>
 											</Column>
 										</columns>
@@ -274,37 +274,37 @@
 											<ColumnListItem>
 												<cells>
 													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-													<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+													<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 													<Text text="{min_age_limit}+"/>
 													<Text text="{fee_type}"/>
 													<Text text="{vaccine}"/>
-													<Link text="Book" href="https://www.cowin.gov.in/"/>
+													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 												</cells>
 											</ColumnListItem>
 										</items>
-										</Table>
+									</Table>
 									</content>
 								</Panel>
 								<Panel expandable="true" headerText="{dates>/dates/today_4}" width="auto" class="sapUiResponsiveMargin">
 									<content>
-										<Table id="tableId4" inset="false" items="{/sessions}">
+										<Table id="tableId4" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
 											<columns>
-												<Column>
+												<Column  importance="High">
 													<ObjectIdentifier text="Center"/>
 												</Column>
 												<Column>
 													<Text text="Availability"/>
 												</Column>
-												<Column>
+												<Column >
 													<Text text="Age Limit"/>
 												</Column>
-												<Column>
+												<Column >
 													<Text text="Fee Type"/>
 												</Column>
 												<Column>
 													<Text text="Vaccine"/>
 												</Column>
-												<Column>
+												<Column importance="High">
 													<Text text="Book Slot"/>
 												</Column>
 											</columns>
@@ -312,37 +312,37 @@
 												<ColumnListItem>
 													<cells>
 														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-														<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+														<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 														<Text text="{min_age_limit}+"/>
 														<Text text="{fee_type}"/>
 														<Text text="{vaccine}"/>
-														<Link text="Book" href="https://www.cowin.gov.in/"/>
+														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 													</cells>
 												</ColumnListItem>
 											</items>
-											</Table>
+										</Table>
 										</content>
 									</Panel>
 									<Panel expandable="true" headerText="{dates>/dates/today_5}" width="auto" class="sapUiResponsiveMargin">
 										<content>
-											<Table id="tableId5" inset="false" items="{/sessions}">
+											<Table id="tableId5" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
 												<columns>
-													<Column>
+													<Column  importance="High">
 														<ObjectIdentifier text="Center"/>
 													</Column>
 													<Column>
 														<Text text="Availability"/>
 													</Column>
-													<Column>
+													<Column >
 														<Text text="Age Limit"/>
 													</Column>
-													<Column>
+													<Column >
 														<Text text="Fee Type"/>
 													</Column>
 													<Column>
 														<Text text="Vaccine"/>
 													</Column>
-													<Column>
+													<Column importance="High">
 														<Text text="Book Slot"/>
 													</Column>
 												</columns>
@@ -350,37 +350,37 @@
 													<ColumnListItem>
 														<cells>
 															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-															<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+															<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 															<Text text="{min_age_limit}+"/>
 															<Text text="{fee_type}"/>
 															<Text text="{vaccine}"/>
-															<Link text="Book" href="https://www.cowin.gov.in/"/>
+															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 														</cells>
 													</ColumnListItem>
 												</items>
-												</Table>
+											</Table>
 											</content>
 										</Panel>
 										<Panel expandable="true" headerText="{dates>/dates/today_6}" width="auto" class="sapUiResponsiveMargin">
 											<content>
-												<Table id="tableId6" inset="false" items="{/sessions}">
+												<Table id="tableId6" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
 													<columns>
-														<Column>
+														<Column  importance="High">
 															<ObjectIdentifier text="Center"/>
 														</Column>
 														<Column>
 															<Text text="Availability"/>
 														</Column>
-														<Column>
+														<Column >
 															<Text text="Age Limit"/>
 														</Column>
-														<Column>
+														<Column >
 															<Text text="Fee Type"/>
 														</Column>
 														<Column>
 															<Text text="Vaccine"/>
 														</Column>
-														<Column>
+														<Column importance="High">
 															<Text text="Book Slot"/>
 														</Column>
 													</columns>
@@ -388,16 +388,16 @@
 														<ColumnListItem>
 															<cells>
 																<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-																<ObjectIdentifier title="{path:'available_capacity'}" text="Dose 1 : {available_capacity_dose1} | Dose 2 : {available_capacity_dose2}"/>
+																<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 																<Text text="{min_age_limit}+"/>
 																<Text text="{fee_type}"/>
 																<Text text="{vaccine}"/>
-																<Link text="Book" href="https://www.cowin.gov.in/"/>
+																<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 															</cells>
 														</ColumnListItem>
 													</items>
-													</Table>
-												</content>
+												</Table>		
+											</content>
 											</Panel>
 										</VBox>
 					</Page>

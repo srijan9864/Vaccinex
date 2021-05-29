@@ -1,15 +1,22 @@
-sap.ui.define([],
+sap.ui.define([
+	],
 
+	// eslint-disable-next-line strict
 	function(
+	json
 
 ) {
 	return {
 
+		// eslint-disable-next-line camelcase
 		available_capacity: function (sValue) {
-			if( sValue === '0' ){
+			if ( sValue === 0 ){
 				sValue = 'No Slots';
-				return sValue;
+
+			} else {
+				sValue = 'Available: '+sValue;
 			}
-		}
+			return sValue;
+		},
 	};
 });

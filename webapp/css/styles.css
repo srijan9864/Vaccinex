@@ -10,3 +10,7 @@ li[data-todo-item-completed="true"] span {
 
 
 }
+
+.redClass {
+	color: red;
+}

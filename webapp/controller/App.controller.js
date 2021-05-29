@@ -252,7 +252,19 @@ sap.ui.define([
 			var oData1 = { filter: filterArray };
 			var oFilter;
 			var oBinding = this.getView().byId("tableId").getBinding("items");
+			var oBinding1 = this.getView().byId("tableId1").getBinding("items");
+			var oBinding2 = this.getView().byId("tableId2").getBinding("items");
+			var oBinding3 = this.getView().byId("tableId3").getBinding("items");
+			var oBinding4 = this.getView().byId("tableId4").getBinding("items");
+			var oBinding5 = this.getView().byId("tableId5").getBinding("items");
+			var oBinding6 = this.getView().byId("tableId6").getBinding("items");
 			oBinding.filter([]);
+			oBinding1.filter([]);
+			oBinding2.filter([]);
+			oBinding3.filter([]);
+			oBinding4.filter([]);
+			oBinding5.filter([]);
+			oBinding6.filter([]);
 			if (this.getView().byId("check18").getSelected()){
 				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "18");
 				filterArray.push(oFilter); 
@@ -288,6 +300,12 @@ sap.ui.define([
 				filterArray.push(oFilter);
 			} 
 			oBinding.filter(filterArray);
+			oBinding1.filter(filterArray);
+			oBinding2.filter(filterArray);
+			oBinding3.filter(filterArray);
+			oBinding4.filter(filterArray);
+			oBinding5.filter(filterArray);
+			oBinding6.filter(filterArray);
 		}
 
 	});
