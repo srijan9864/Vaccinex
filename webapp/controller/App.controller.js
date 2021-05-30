@@ -58,6 +58,7 @@ sap.ui.define([
 				}
 			};
 			var oDateModel = new sap.ui.model.json.JSONModel(oDate);
+			oDateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
 			this.getView().setModel(oDateModel, 'dates');
 
 			var oModel1 = new sap.ui.model.json.JSONModel();
@@ -189,9 +190,10 @@ sap.ui.define([
 			return sNavigatedItemId === sItemId;
 		},
 		onBtnPress: function (oEvent) {
+			var that = this;
 			function getDate(n) {
-				var date = new Date();
-				var today = new Date(date);
+				var sDate = that.getView().byId("Date1").getDateValue();
+				var today = new Date(sDate);
 				today.setDate(today.getDate() + n);
 				var dd = today.getDate();
 				var mm = today.getMonth() + 1;
@@ -216,6 +218,24 @@ sap.ui.define([
 			var table6 = this.getView().byId("tableId6");
 			var vBox = this.getView().byId("Vbox1");
 			var checboxes = this.getView().byId("checboxpanel");
+
+			var dateModel = this.getView().getModel("dates");
+			dateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
+			var dateData = {};
+			dateData = {
+				dates: {
+					today: getDate(0),
+					today_1: getDate(1),
+					today_2: getDate(2),
+					today_3: getDate(3),
+					today_4: getDate(4),
+					today_5: getDate(5),
+					today_6: getDate(6)
+				}
+			} ;
+
+			dateModel.setData(dateData);
+			this.getView().setModel(dateModel, "dates");
 			vBox.setVisible(true);
 			checboxes.setVisible(true);
 			var modeArray = [];
@@ -267,38 +287,38 @@ sap.ui.define([
 			oBinding6.filter([]);
 			if (this.getView().byId("check18").getSelected()){
 				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "18");
-				filterArray.push(oFilter); 
+				filterArray.push(oFilter);
 			}
-			
+
 			if (this.getView().byId("check45").getSelected()){
 				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "45");
-				filterArray.push(oFilter); 
+				filterArray.push(oFilter);
 			}
-	
-			
+
+
 			if (this.getView().byId("checkcovaxin").getSelected()){
 				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "COVAXIN");
 				filterArray.push(oFilter);
-			} 
-			
+			}
+
 			if (this.getView().byId("checkcovishield").getSelected()){
 				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
 				filterArray.push(oFilter);
-			} 
-			
+			}
+
 			if (this.getView().byId("checksputnik").getSelected()){
 				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "SPUTNIK V");
 				filterArray.push(oFilter);
-			} 
+			}
 			if (this.getView().byId("checkfree").getSelected()){
 				oFilter= new sap.ui.model.Filter("fee_type", "EQ", "Free");
 				filterArray.push(oFilter);
-			} 
-			
+			}
+
 			if (this.getView().byId("checkpaid").getSelected()){
 				oFilter= new sap.ui.model.Filter("fee_type", "EQ", "Paid");
 				filterArray.push(oFilter);
-			} 
+			}
 			oBinding.filter(filterArray);
 			oBinding1.filter(filterArray);
 			oBinding2.filter(filterArray);

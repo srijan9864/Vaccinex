@@ -112,8 +112,15 @@
 						<FlexBox justifyContent="Center" alignItems="Start" >
 							<items>
 								<Input id = "pincode" maxLength="6" type="Number" placeholder = " Enter Pincode" />
-								<Button type ="Accept" text="Search" press="onBtnPress"></Button>
+									<DatePicker
+										id="Date1"
+										value="{dates>/dates/today}" valueFormat="dd-MM-yyyy"
+										class="sapUiSmallMarginBegin"
+										displayFormat="long"
+										showFooter="true"/>
+										<Button class="sapUiMediumMarginBegin" type ="Accept" text="Search" press="onBtnPress"></Button>				
 							</items>
+	
 						</FlexBox>
 						<FlexBox justifyContent="Center" alignItems="Start" >
 						<Panel id="checboxpanel" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region" visible="false">
@@ -163,7 +170,7 @@
 											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 											<Text text="{min_age_limit}+"/>
 											<Text text="{fee_type}"/>
-											<Text text="{vaccine}"/>
+											<ObjectStatus state="Information" text="{vaccine}"/>
 											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
@@ -201,7 +208,7 @@
 											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 											<Text text="{min_age_limit}+"/>
 											<Text text="{fee_type}"/>
-											<Text text="{vaccine}"/>
+											<ObjectStatus state="Information" text="{vaccine}"/>
 											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
@@ -239,7 +246,7 @@
 												<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 												<Text text="{min_age_limit}+"/>
 												<Text text="{fee_type}"/>
-												<Text text="{vaccine}"/>
+												<ObjectStatus state="Information" text="{vaccine}"/>
 												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 											</cells>
 										</ColumnListItem>
@@ -277,7 +284,7 @@
 													<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 													<Text text="{min_age_limit}+"/>
 													<Text text="{fee_type}"/>
-													<Text text="{vaccine}"/>
+													<ObjectStatus state="Information" text="{vaccine}"/>
 													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 												</cells>
 											</ColumnListItem>
@@ -315,7 +322,7 @@
 														<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 														<Text text="{min_age_limit}+"/>
 														<Text text="{fee_type}"/>
-														<Text text="{vaccine}"/>
+														<ObjectStatus state="Information" text="{vaccine}"/>
 														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 													</cells>
 												</ColumnListItem>
@@ -353,7 +360,7 @@
 															<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 															<Text text="{min_age_limit}+"/>
 															<Text text="{fee_type}"/>
-															<Text text="{vaccine}"/>
+															<ObjectStatus state="Information" text="{vaccine}"/>
 															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 														</cells>
 													</ColumnListItem>
@@ -391,7 +398,7 @@
 																<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
 																<Text text="{min_age_limit}+"/>
 																<Text text="{fee_type}"/>
-																<Text text="{vaccine}"/>
+																<ObjectStatus state="Information" text="{vaccine}"/>
 																<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
 															</cells>
 														</ColumnListItem>
