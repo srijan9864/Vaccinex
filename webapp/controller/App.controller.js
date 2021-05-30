@@ -21,7 +21,7 @@ sap.ui.define([
 			});
 			var oStateModel = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/states");
 			this.getView().byId("state").setModel(oStateModel);
-			console.log(oStateModel);
+			this.getView().byId("state1").setModel(oStateModel);
 			var oDeviceModel = new sap.ui.model.json.JSONModel({
 				isTouch: sap.ui.Device.support.touch,
 				isNoTouch: !sap.ui.Device.support.touch,
@@ -334,10 +334,36 @@ sap.ui.define([
 			var oValidatedComboBox = oEvent.getSource();
 			var oSelectedKey = oValidatedComboBox.getSelectedKey();
 			var oDistrictModel = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/districts/"+oSelectedKey);
-		
+		    console.log(oEvent);
 			this.getView().byId("district").setModel(oDistrictModel);
+			this.getView().byId("district1").setModel(oDistrictModel);
 		
 	},
+	handleChange1: function(oEvent){
+		var that = this;
+		function getDate(n) {
+			var sDate = that.getView().byId("Date2").getDateValue();
+			var today = new Date(sDate);
+			today.setDate(today.getDate() + n);
+			var dd = today.getDate();
+			var mm = today.getMonth() + 1;
+			var yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+			var today = dd + '-' + mm + '-' + yyyy;
+
+			return today;
+		}
+		var oValidatedComboBox = oEvent.getSource();
+		var oSelectedKey = oValidatedComboBox.getSelectedKey();
+		var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=" + oSelectedKey + "&date=" + getDate(0);
+		var oCenterModel = new sap.ui.model.json.JSONModel(sPath);
+		this.getView().byId("centers").setModel(oCenterModel);
+},
 	onBtnPress1: function (oEvent) {
 	var that = this;
 			function getDate(n) {
@@ -404,6 +430,36 @@ sap.ui.define([
 			table5.setModel(modeArray[5]);
 			table6.setModel(modeArray[6]);
 		},
+		onBtnPress2: function (oEvent) {
+			var that = this;
+	
+						var sDate = that.getView().byId("Date3").getDateValue();
+						var today = new Date(sDate);
+						today.setDate(today.getDate());
+						var dd = today.getDate();
+						var mm = today.getMonth() + 1;
+						var yyyy = today.getFullYear();
+						if (dd < 10) {
+							dd = '0' + dd;
+						}
+						if (mm < 10) {
+							mm = '0' + mm;
+						}
+						today = dd + '-' + mm + '-' + yyyy;
+
+					var oCenter = this.getView().byId("centers").getSelectedKey();
+					var table = this.getView().byId("table2Id");
+					var vBox = this.getView().byId("Vbox3");
+					var dateModel = this.getView().getModel("dates");
+					dateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
+					vBox.setVisible(true);
+						var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + oCenter + "&date=" + today;
+						var oCenterModel = new sap.ui.model.json.JSONModel(sPath);
+
+						console.log(oCenterModel);
+					table.setModel(oCenterModel);
+					this.getView().setModel(oCenterModel, "center");
+				},
 		onCheckbox1: function(oEvent){
 			var filtermodel = new sap.ui.model.json.JSONModel();
 			var filterArray = [];

@@ -47,7 +47,7 @@
 					</Page>
 					<Page
 						id="detailDetail"
-						title="Detail Detail"
+						title="Search Slots By District"
 						backgroundDesign="Solid"
 						showNavButton="true"
 						navButtonPress=".onPressDetailBack"
@@ -123,10 +123,10 @@
 									<cells>
 										<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 										<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-										<Text text="{min_age_limit}+"/>
-										<Text text="{fee_type}"/>
+										<ObjectStatus state="Information" text="{min_age_limit}+"/>
+										<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 										<ObjectStatus state="Information" text="{vaccine}"/>
-										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -161,10 +161,10 @@
 									<cells>
 										<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 										<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-										<Text text="{min_age_limit}+"/>
-										<Text text="{fee_type}"/>
+										<ObjectStatus state="Information" text="{min_age_limit}+"/>
+										<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 										<ObjectStatus state="Information" text="{vaccine}"/>
-										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -199,10 +199,10 @@
 										<cells>
 											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-											<Text text="{min_age_limit}+"/>
-											<Text text="{fee_type}"/>
+											<ObjectStatus state="Information" text="{min_age_limit}+"/>
+											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 											<ObjectStatus state="Information" text="{vaccine}"/>
-											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -237,10 +237,10 @@
 											<cells>
 												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 												<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-												<Text text="{min_age_limit}+"/>
-												<Text text="{fee_type}"/>
+												<ObjectStatus state="Information" text="{min_age_limit}+"/>
+												<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 												<ObjectStatus state="Information" text="{vaccine}"/>
-												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 											</cells>
 										</ColumnListItem>
 									</items>
@@ -275,10 +275,10 @@
 												<cells>
 													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 													<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-													<Text text="{min_age_limit}+"/>
-													<Text text="{fee_type}"/>
+													<ObjectStatus state="Information" text="{min_age_limit}+"/>
+													<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 													<ObjectStatus state="Information" text="{vaccine}"/>
-													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 												</cells>
 											</ColumnListItem>
 										</items>
@@ -313,10 +313,10 @@
 													<cells>
 														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 														<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-														<Text text="{min_age_limit}+"/>
-														<Text text="{fee_type}"/>
+														<ObjectStatus state="Information" text="{min_age_limit}+"/>
+														<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 														<ObjectStatus state="Information" text="{vaccine}"/>
-														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 													</cells>
 												</ColumnListItem>
 											</items>
@@ -351,10 +351,10 @@
 														<cells>
 															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 															<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-															<Text text="{min_age_limit}+"/>
-															<Text text="{fee_type}"/>
+															<ObjectStatus state="Information" text="{min_age_limit}+"/>
+															<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 															<ObjectStatus state="Information" text="{vaccine}"/>
-															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 														</cells>
 													</ColumnListItem>
 												</items>
@@ -366,21 +366,85 @@
 					</Page>
 					<Page
 						id="detail2"
-						title="Detail 3 Page"
+						title="Search Slots By Center"
 						backgroundDesign="Solid"
 						showNavButton="true"
 						navButtonPress=".onPressDetailBack"
 					>
-						<Label text="This is Detail Page3"/>
-						<Input/>
-						<Label text="Label 2"/>
-						<Input/>
-						<Label text="Label 3"/>
-						<Input/>
-						<Label text="Label 4"/>
-						<Input/>
-						<Label text="Label 5"/>
-						<Input/>
+					<FlexBox justifyContent="Center" alignItems="Start" >
+						<Panel  width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">	
+							<content>
+								<FlexBox justifyContent="Center" alignItems="Start" >
+							<ComboBox class="sapUiResponsiveMargin" id = "state1" items ="{ path : '/states'}" placeholder = "State" change="handleChange" >
+								<core:Item key = "{state_id}" text="{state_name}" />
+							</ComboBox>
+							<ComboBox  class="sapUiResponsiveMargin" id = "district1"  placeholder = "District" items ="{ path : '/districts'}" change="handleChange1">
+							<core:Item key = "{district_id}" text="{district_name}" />
+							</ComboBox>
+							<ComboBox  class="sapUiResponsiveMargin" id = "centers"  placeholder = "Center" items ="{ path : '/centers'}">
+								<core:Item key = "{center_id}" text="{name}" />
+								</ComboBox>
+						</FlexBox>
+						<FlexBox justifyContent="Center" alignItems="Start" >
+								<DatePicker
+									id="Date3"
+									value="{dates>/dates/today}" valueFormat="dd-MM-yyyy"
+									displayFormat="long"
+									showFooter="true"/>
+								</FlexBox>
+									<FlexBox justifyContent="Center" alignItems="Start" >
+									<Button type ="Accept" text="Search" press="onBtnPress2"></Button>	
+									</FlexBox>			
+							</content>
+						</Panel>
+
+					</FlexBox>
+				<VBox id="Vbox3" class="sapUiResponsiveMargin" visible= "false">
+						<Panel width="auto" class="sapUiResponsiveMargin">
+					<content>
+						<FlexBox justifyContent="Center" alignItems="Start" >
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{center>/centers/name}"
+						frameType="TwoByOne">
+						<TileContent footer="Timing: {center>/centers/from} to {center>/centers/to}">
+							<FeedContent contentText="{center>/centers/address},{center>/centers/block_name}, {center>/centers/district_name}"
+								subheader="{center>/centers/state_name}, {center>/centers/pincode}" value="{center>/centers/fee_type}" />
+						</TileContent>
+					</GenericTile>
+				</FlexBox>
+						<Table id="table2Id" inset="false" items="{/centers/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+							<columns>
+								<Column  importance="High">
+									<ObjectIdentifier text="Date"/>
+								</Column>
+								<Column importance="Medium">
+									<Text text="Availability"/>
+								</Column>
+								<Column >
+									<Text text="Age Limit"/>
+								</Column>
+								<Column>
+									<Text text="Vaccine"/>
+								</Column>
+								<Column importance="High">
+									<Text text="Book Slot"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectStatus state="Information" text="{date}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<ObjectStatus state="Information" text="{min_age_limit}+"/>
+										<ObjectStatus state="Information" text="{vaccine}"/>
+										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</content>
+				</Panel>
+			</VBox>
+		
 					</Page>
 					<Page
 						id="detail3"
@@ -449,10 +513,10 @@
 										<cells>
 											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-											<Text text="{min_age_limit}+"/>
-											<Text text="{fee_type}"/>
+											<ObjectStatus state="Information" text="{min_age_limit}+"/>
+											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 											<ObjectStatus state="Information" text="{vaccine}"/>
-											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -487,10 +551,10 @@
 										<cells>
 											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-											<Text text="{min_age_limit}+"/>
-											<Text text="{fee_type}"/>
+											<ObjectStatus state="Information" text="{min_age_limit}+"/>
+											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 											<ObjectStatus state="Information" text="{vaccine}"/>
-											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -525,10 +589,10 @@
 											<cells>
 												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 												<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-												<Text text="{min_age_limit}+"/>
-												<Text text="{fee_type}"/>
+												<ObjectStatus state="Information" text="{min_age_limit}+"/>
+												<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 												<ObjectStatus state="Information" text="{vaccine}"/>
-												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 											</cells>
 										</ColumnListItem>
 									</items>
@@ -563,10 +627,10 @@
 												<cells>
 													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 													<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-													<Text text="{min_age_limit}+"/>
-													<Text text="{fee_type}"/>
+													<ObjectStatus state="Information" text="{min_age_limit}+"/>
+													<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 													<ObjectStatus state="Information" text="{vaccine}"/>
-													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 												</cells>
 											</ColumnListItem>
 										</items>
@@ -601,10 +665,10 @@
 													<cells>
 														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 														<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-														<Text text="{min_age_limit}+"/>
-														<Text text="{fee_type}"/>
+														<ObjectStatus state="Information" text="{min_age_limit}+"/>
+														<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 														<ObjectStatus state="Information" text="{vaccine}"/>
-														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 													</cells>
 												</ColumnListItem>
 											</items>
@@ -639,10 +703,10 @@
 														<cells>
 															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 															<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-															<Text text="{min_age_limit}+"/>
-															<Text text="{fee_type}"/>
+															<ObjectStatus state="Information" text="{min_age_limit}+"/>
+															<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 															<ObjectStatus state="Information" text="{vaccine}"/>
-															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 														</cells>
 													</ColumnListItem>
 												</items>
@@ -677,10 +741,10 @@
 															<cells>
 																<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
 																<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-																<Text text="{min_age_limit}+"/>
-																<Text text="{fee_type}"/>
+																<ObjectStatus state="Information" text="{min_age_limit}+"/>
+																<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 																<ObjectStatus state="Information" text="{vaccine}"/>
-																<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+																<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 															</cells>
 														</ColumnListItem>
 													</items>
@@ -714,7 +778,7 @@
 									custom:to="detailDetail"
 								/>
 								<StandardListItem
-									title="Slots By Locations"
+									title="Slots By Center"
 									type="Active"
 									custom:to="detail2"
 								/>
