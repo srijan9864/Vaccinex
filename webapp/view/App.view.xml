@@ -52,38 +52,317 @@
 						showNavButton="true"
 						navButtonPress=".onPressDetailBack"
 					>
-						<VBox class="sapUiResponsiveMargin">
-							<Label text="This is Detail Page2"/>
-							<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour."/>
-							<RadioButtonGroup
-								columns="1"
-								width="500px"
-								class="sapUiMediumMarginBottom"
-								select=".onPressModeBtn"
-							>
-								<RadioButton
-									id="RB1-1"
-									text="show/hide"
-									selected="true"
-									custom:splitAppMode="ShowHideMode"
-								/>
-								<RadioButton
-									id="RB1-2"
-									text="stretch/compress"
-									custom:splitAppMode="StretchCompressMode"
-								/>
-								<RadioButton
-									id="RB1-3"
-									text="hide"
-									custom:splitAppMode="HideMode"
-								/>
-								<RadioButton
-									id="RB1-4"
-									text="popover"
-									custom:splitAppMode="PopoverMode"
-								/>
-							</RadioButtonGroup>
-						</VBox>
+					<FlexBox justifyContent="Center" alignItems="Start" >
+						<Panel  width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">	
+							<content>
+								<FlexBox justifyContent="Center" alignItems="Start" >
+							<ComboBox class="sapUiResponsiveMargin" id = "state" items ="{ path : '/states'}" placeholder = "Choose State" 	change="handleChange" >
+								<core:Item key = "{state_id}" text="{state_name}" />
+							</ComboBox>
+							<ComboBox  class="sapUiResponsiveMargin" id = "district"  placeholder = "Choose District" items ="{ path : '/districts'}">
+							<core:Item key = "{district_id}" text="{district_name}" />
+							</ComboBox>
+						</FlexBox>
+						<FlexBox justifyContent="Center" alignItems="Start" >
+								<DatePicker
+									id="Date2"
+									value="{dates>/dates/today}" valueFormat="dd-MM-yyyy"
+									displayFormat="long"
+									showFooter="true"/>
+								</FlexBox>
+									<FlexBox justifyContent="Center" alignItems="Start" >
+									<Button type ="Accept" text="Search" press="onBtnPress"></Button>	
+									</FlexBox>			
+							</content>
+						</Panel>
+
+					</FlexBox>
+					<FlexBox justifyContent="Center" alignItems="Start" >
+					<Panel id="checboxpanel1" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region" visible="false">
+						<content>
+					<CheckBox
+						id = "check118"
+						text="18+"
+						select="onCheckbox"
+					/>
+					<CheckBox id = "check145" text="45+" select="onCheckbox"/>
+					<CheckBox id = "check1covishield" text="Covishield" select="onCheckbox"/>
+					<CheckBox id = "check1covaxin" text="Covaxin" select="onCheckbox"/>
+					<CheckBox id = "check1sputnik" text="Sputnik V" select="onCheckbox"/>
+					<CheckBox id = "check1free" text="Free" select="onCheckbox"/>
+					<CheckBox id = "check1paid" text="Paid" select="onCheckbox"/>
+			</content>
+		</Panel>
+	</FlexBox>
+				<VBox id="Vbox2" class="sapUiResponsiveMargin" visible= "false">
+						<Panel expandable="true" headerText="{dates>/dates/today}" width="auto" class="sapUiResponsiveMargin">
+					<content>
+						<Table id="table1Id" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+							<columns>
+								<Column  importance="High">
+									<ObjectIdentifier text="Center"/>
+								</Column>
+								<Column>
+									<Text text="Availability"/>
+								</Column>
+								<Column >
+									<Text text="Age Limit"/>
+								</Column>
+								<Column >
+									<Text text="Fee Type"/>
+								</Column>
+								<Column>
+									<Text text="Vaccine"/>
+								</Column>
+								<Column importance="High">
+									<Text text="Book Slot"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<Text text="{min_age_limit}+"/>
+										<Text text="{fee_type}"/>
+										<ObjectStatus state="Information" text="{vaccine}"/>
+										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</content>
+				</Panel>
+				<Panel expandable="true" headerText="{dates>/dates/today_1}" width="auto" class="sapUiResponsiveMargin">
+					<content>
+						<Table id="table1Id1" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+							<columns>
+								<Column  importance="High">
+									<ObjectIdentifier text="Center"/>
+								</Column>
+								<Column>
+									<Text text="Availability"/>
+								</Column>
+								<Column >
+									<Text text="Age Limit"/>
+								</Column>
+								<Column >
+									<Text text="Fee Type"/>
+								</Column>
+								<Column>
+									<Text text="Vaccine"/>
+								</Column>
+								<Column importance="High">
+									<Text text="Book Slot"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<Text text="{min_age_limit}+"/>
+										<Text text="{fee_type}"/>
+										<ObjectStatus state="Information" text="{vaccine}"/>
+										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						</content>
+					</Panel>
+					<Panel expandable="true" headerText="{dates>/dates/today_2}" width="auto" class="sapUiResponsiveMargin">
+						<content>
+							<Table id="table1Id2" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+								<columns>
+									<Column  importance="High">
+										<ObjectIdentifier text="Center"/>
+									</Column>
+									<Column>
+										<Text text="Availability"/>
+									</Column>
+									<Column >
+										<Text text="Age Limit"/>
+									</Column>
+									<Column >
+										<Text text="Fee Type"/>
+									</Column>
+									<Column>
+										<Text text="Vaccine"/>
+									</Column>
+									<Column importance="High">
+										<Text text="Book Slot"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+											<Text text="{min_age_limit}+"/>
+											<Text text="{fee_type}"/>
+											<ObjectStatus state="Information" text="{vaccine}"/>
+											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							</content>
+						</Panel>
+						<Panel expandable="true" headerText="{dates>/dates/today_3}" width="auto" class="sapUiResponsiveMargin">
+							<content>
+								<Table id="table1Id3" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+									<columns>
+										<Column  importance="High">
+											<ObjectIdentifier text="Center"/>
+										</Column>
+										<Column>
+											<Text text="Availability"/>
+										</Column>
+										<Column >
+											<Text text="Age Limit"/>
+										</Column>
+										<Column >
+											<Text text="Fee Type"/>
+										</Column>
+										<Column>
+											<Text text="Vaccine"/>
+										</Column>
+										<Column importance="High">
+											<Text text="Book Slot"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+												<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+												<Text text="{min_age_limit}+"/>
+												<Text text="{fee_type}"/>
+												<ObjectStatus state="Information" text="{vaccine}"/>
+												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+								</content>
+							</Panel>
+							<Panel expandable="true" headerText="{dates>/dates/today_4}" width="auto" class="sapUiResponsiveMargin">
+								<content>
+									<Table id="table1Id4" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+										<columns>
+											<Column  importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column >
+												<Text text="Age Limit"/>
+											</Column>
+											<Column >
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+													<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+													<Text text="{min_age_limit}+"/>
+													<Text text="{fee_type}"/>
+													<ObjectStatus state="Information" text="{vaccine}"/>
+													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+									</content>
+								</Panel>
+								<Panel expandable="true" headerText="{dates>/dates/today_5}" width="auto" class="sapUiResponsiveMargin">
+									<content>
+										<Table id="table1Id5" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+											<columns>
+												<Column  importance="High">
+													<ObjectIdentifier text="Center"/>
+												</Column>
+												<Column>
+													<Text text="Availability"/>
+												</Column>
+												<Column >
+													<Text text="Age Limit"/>
+												</Column>
+												<Column >
+													<Text text="Fee Type"/>
+												</Column>
+												<Column>
+													<Text text="Vaccine"/>
+												</Column>
+												<Column importance="High">
+													<Text text="Book Slot"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem>
+													<cells>
+														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+														<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+														<Text text="{min_age_limit}+"/>
+														<Text text="{fee_type}"/>
+														<ObjectStatus state="Information" text="{vaccine}"/>
+														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+										</content>
+									</Panel>
+									<Panel expandable="true" headerText="{dates>/dates/today_6}" width="auto" class="sapUiResponsiveMargin">
+										<content>
+											<Table id="table1Id6" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+												<columns>
+													<Column  importance="High">
+														<ObjectIdentifier text="Center"/>
+													</Column>
+													<Column>
+														<Text text="Availability"/>
+													</Column>
+													<Column >
+														<Text text="Age Limit"/>
+													</Column>
+													<Column >
+														<Text text="Fee Type"/>
+													</Column>
+													<Column>
+														<Text text="Vaccine"/>
+													</Column>
+													<Column importance="High">
+														<Text text="Book Slot"/>
+													</Column>
+												</columns>
+												<items>
+													<ColumnListItem>
+														<cells>
+															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+															<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+															<Text text="{min_age_limit}+"/>
+															<Text text="{fee_type}"/>
+															<ObjectStatus state="Information" text="{vaccine}"/>
+															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://www.cowin.gov.in/"/>
+														</cells>
+													</ColumnListItem>
+												</items>
+											</Table>		
+										</content>
+										</Panel>
+									</VBox>
+		
 					</Page>
 					<Page
 						id="detail2"
@@ -110,17 +389,19 @@
 						showNavButton="true"
 						navButtonPress=".onPressDetailBack">
 						<FlexBox justifyContent="Center" alignItems="Start" >
-							<items>
+							<Panel  width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">	
+								<content>
 								<Input id = "pincode" maxLength="6" type="Number" placeholder = " Enter Pincode" />
 									<DatePicker
 										id="Date1"
 										value="{dates>/dates/today}" valueFormat="dd-MM-yyyy"
-										class="sapUiSmallMarginBegin"
 										displayFormat="long"
 										showFooter="true"/>
-										<Button class="sapUiMediumMarginBegin" type ="Accept" text="Search" press="onBtnPress"></Button>				
-							</items>
-	
+										<FlexBox justifyContent="Center" alignItems="Start" >
+										<Button type ="Accept" text="Search" press="onBtnPress"></Button>	
+										</FlexBox>			
+								</content>
+							</Panel>
 						</FlexBox>
 						<FlexBox justifyContent="Center" alignItems="Start" >
 						<Panel id="checboxpanel" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region" visible="false">

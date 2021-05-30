@@ -19,6 +19,9 @@ sap.ui.define([
 				'tablet': 'tablet-icon.png',
 				'icon': 'desktop.ico'
 			});
+			var oStateModel = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/states");
+			this.getView().byId("state").setModel(oStateModel);
+			console.log(oStateModel);
 			var oDeviceModel = new sap.ui.model.json.JSONModel({
 				isTouch: sap.ui.Device.support.touch,
 				isNoTouch: !sap.ui.Device.support.touch,
@@ -326,6 +329,13 @@ sap.ui.define([
 			oBinding4.filter(filterArray);
 			oBinding5.filter(filterArray);
 			oBinding6.filter(filterArray);
+		},
+		handleChange: function(oEvent){
+			var oValidatedComboBox = oEvent.getSource();
+			var oSelectedKey = oValidatedComboBox.getSelectedKey();
+
+		var oDistrictModel = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/districts/"+oSelectedKey);
+		this.getView().byId("district").setModel(oDistrictModel);
 		}
 
 	});
