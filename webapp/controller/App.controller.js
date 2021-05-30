@@ -3,7 +3,8 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/Device",
 	"sap/base/Log",
-	"sap/ui/demo/todo/model/formatter"
+	"sap/ui/demo/todo/model/formatter",
+	"sap/m/MessageBox"
 ], function (MessageToast,
 	Controller,
 	Device,
@@ -71,7 +72,7 @@ sap.ui.define([
 			//      1.Get the id of the VizFrame
 			var oVizFrame = this.getView().byId("idpiechart");
 
-			if (sap.ui.Device.system.phone){
+			if (sap.ui.Device.system.phone) {
 				oVizFrame.setHeight("400px");
 				oVizFrame.setWidth("400px");
 			}
@@ -193,6 +194,8 @@ sap.ui.define([
 			return sNavigatedItemId === sItemId;
 		},
 		onBtnPress: function (oEvent) {
+			var pincode = this.getView().byId("pincode").getValue();
+			if (pincode !== '') {
 			var that = this;
 			function getDate(n) {
 				var sDate = that.getView().byId("Date1").getDateValue();
@@ -211,7 +214,7 @@ sap.ui.define([
 
 				return today;
 			}
-			var pincode = this.getView().byId("pincode").getValue();
+			
 			var table = this.getView().byId("tableId");
 			var table1 = this.getView().byId("tableId1");
 			var table2 = this.getView().byId("tableId2");
@@ -235,7 +238,7 @@ sap.ui.define([
 					today_5: getDate(5),
 					today_6: getDate(6)
 				}
-			} ;
+			};
 
 			dateModel.setData(dateData);
 			this.getView().setModel(dateModel, "dates");
@@ -259,6 +262,9 @@ sap.ui.define([
 			table4.setModel(modeArray[4]);
 			table5.setModel(modeArray[5]);
 			table6.setModel(modeArray[6]);
+		} else {
+			sap.m.MessageBox.error("Please enter a Pincode");
+		}
 		},
 
 		onSwitchChange: function (sValue) {
@@ -269,7 +275,7 @@ sap.ui.define([
 			}
 		},
 
-		onCheckbox: function(oEvent){
+		onCheckbox: function (oEvent) {
 			var filtermodel = new sap.ui.model.json.JSONModel();
 			var filterArray = [];
 			var oData1 = { filter: filterArray };
@@ -288,38 +294,38 @@ sap.ui.define([
 			oBinding4.filter([]);
 			oBinding5.filter([]);
 			oBinding6.filter([]);
-			if (this.getView().byId("check18").getSelected()){
-				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "18");
+			if (this.getView().byId("check18").getSelected()) {
+				oFilter = new sap.ui.model.Filter("min_age_limit", "EQ", "18");
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("check45").getSelected()){
-				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "45");
+			if (this.getView().byId("check45").getSelected()) {
+				oFilter = new sap.ui.model.Filter("min_age_limit", "EQ", "45");
 				filterArray.push(oFilter);
 			}
 
 
-			if (this.getView().byId("checkcovaxin").getSelected()){
-				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "COVAXIN");
+			if (this.getView().byId("checkcovaxin").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "COVAXIN");
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("checkcovishield").getSelected()){
-				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
+			if (this.getView().byId("checkcovishield").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("checksputnik").getSelected()){
-				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "SPUTNIK V");
+			if (this.getView().byId("checksputnik").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "SPUTNIK V");
 				filterArray.push(oFilter);
 			}
-			if (this.getView().byId("checkfree").getSelected()){
-				oFilter= new sap.ui.model.Filter("fee_type", "EQ", "Free");
+			if (this.getView().byId("checkfree").getSelected()) {
+				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Free");
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("checkpaid").getSelected()){
-				oFilter= new sap.ui.model.Filter("fee_type", "EQ", "Paid");
+			if (this.getView().byId("checkpaid").getSelected()) {
+				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Paid");
 				filterArray.push(oFilter);
 			}
 			oBinding.filter(filterArray);
@@ -330,42 +336,17 @@ sap.ui.define([
 			oBinding5.filter(filterArray);
 			oBinding6.filter(filterArray);
 		},
-		handleChange: function(oEvent){
+		handleChange: function (oEvent) {
 			var oValidatedComboBox = oEvent.getSource();
 			var oSelectedKey = oValidatedComboBox.getSelectedKey();
-			var oDistrictModel = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/districts/"+oSelectedKey);
-		    console.log(oEvent);
+			var oDistrictModel = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/districts/" + oSelectedKey);
+			console.log(oEvent);
 			this.getView().byId("district").setModel(oDistrictModel);
 			this.getView().byId("district1").setModel(oDistrictModel);
-		
-	},
-	handleChange1: function(oEvent){
-		var that = this;
-		function getDate(n) {
-			var sDate = that.getView().byId("Date2").getDateValue();
-			var today = new Date(sDate);
-			today.setDate(today.getDate() + n);
-			var dd = today.getDate();
-			var mm = today.getMonth() + 1;
-			var yyyy = today.getFullYear();
-			if (dd < 10) {
-				dd = '0' + dd;
-			}
-			if (mm < 10) {
-				mm = '0' + mm;
-			}
-			var today = dd + '-' + mm + '-' + yyyy;
 
-			return today;
-		}
-		var oValidatedComboBox = oEvent.getSource();
-		var oSelectedKey = oValidatedComboBox.getSelectedKey();
-		var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=" + oSelectedKey + "&date=" + getDate(0);
-		var oCenterModel = new sap.ui.model.json.JSONModel(sPath);
-		this.getView().byId("centers").setModel(oCenterModel);
-},
-	onBtnPress1: function (oEvent) {
-	var that = this;
+		},
+		handleChange1: function (oEvent) {
+			var that = this;
 			function getDate(n) {
 				var sDate = that.getView().byId("Date2").getDateValue();
 				var today = new Date(sDate);
@@ -383,84 +364,115 @@ sap.ui.define([
 
 				return today;
 			}
+			var oValidatedComboBox = oEvent.getSource();
+			var oSelectedKey = oValidatedComboBox.getSelectedKey();
+			var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=" + oSelectedKey + "&date=" + getDate(0);
+			var oCenterModel = new sap.ui.model.json.JSONModel(sPath);
+			this.getView().byId("centers").setModel(oCenterModel);
+		},
+		onBtnPress1: function (oEvent) {
+			var that = this;
 			var oDistrict = this.getView().byId("district").getSelectedKey();
-			var table = this.getView().byId("table1Id");
-			var table1 = this.getView().byId("table1Id1");
-			var table2 = this.getView().byId("table1Id2");
-			var table3 = this.getView().byId("table1Id3");
-			var table4 = this.getView().byId("table1Id4");
-			var table5 = this.getView().byId("table1Id5");
-			var table6 = this.getView().byId("table1Id6");
-			var vBox = this.getView().byId("Vbox2");
-			var checboxes = this.getView().byId("checboxpanel1");
+			if (oDistrict !== '') {
+				function getDate(n) {
+					var sDate = that.getView().byId("Date2").getDateValue();
+					var today = new Date(sDate);
+					today.setDate(today.getDate() + n);
+					var dd = today.getDate();
+					var mm = today.getMonth() + 1;
+					var yyyy = today.getFullYear();
+					if (dd < 10) {
+						dd = '0' + dd;
+					}
+					if (mm < 10) {
+						mm = '0' + mm;
+					}
+					var today = dd + '-' + mm + '-' + yyyy;
 
-			var dateModel = this.getView().getModel("dates");
-			dateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
-			var dateData = {};
-			dateData = {
-				dates: {
-					today: getDate(0),
-					today_1: getDate(1),
-					today_2: getDate(2),
-					today_3: getDate(3),
-					today_4: getDate(4),
-					today_5: getDate(5),
-					today_6: getDate(6)
+					return today;
 				}
-			} ;
+				var table = this.getView().byId("table1Id");
+				var table1 = this.getView().byId("table1Id1");
+				var table2 = this.getView().byId("table1Id2");
+				var table3 = this.getView().byId("table1Id3");
+				var table4 = this.getView().byId("table1Id4");
+				var table5 = this.getView().byId("table1Id5");
+				var table6 = this.getView().byId("table1Id6");
+				var vBox = this.getView().byId("Vbox2");
+				var checboxes = this.getView().byId("checboxpanel1");
 
-			dateModel.setData(dateData);
-			this.getView().setModel(dateModel, "dates");
-			vBox.setVisible(true);
-			checboxes.setVisible(true);
-			var modeArray = [];
-			for (var i = 0; i < 7; i++) {
+				var dateModel = this.getView().getModel("dates");
+				dateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
+				var dateData = {};
+				dateData = {
+					dates: {
+						today: getDate(0),
+						today_1: getDate(1),
+						today_2: getDate(2),
+						today_3: getDate(3),
+						today_4: getDate(4),
+						today_5: getDate(5),
+						today_6: getDate(6)
+					}
+				};
 
-				var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + oDistrict + "&date=" + getDate(i);
-				var oPinModel = new sap.ui.model.json.JSONModel(sPath);
-				modeArray.push(oPinModel);
-				sPath = "";
-				oPinModel = undefined;
+				dateModel.setData(dateData);
+				this.getView().setModel(dateModel, "dates");
+				vBox.setVisible(true);
+				checboxes.setVisible(true);
+				var modeArray = [];
+				for (var i = 0; i < 7; i++) {
+
+					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + oDistrict + "&date=" + getDate(i);
+					var oPinModel = new sap.ui.model.json.JSONModel(sPath);
+					modeArray.push(oPinModel);
+					sPath = "";
+					oPinModel = undefined;
+				}
+				table.setModel(modeArray[0]);
+				table1.setModel(modeArray[1]);
+				table2.setModel(modeArray[2]);
+				table3.setModel(modeArray[3]);
+				table4.setModel(modeArray[4]);
+				table5.setModel(modeArray[5]);
+				table6.setModel(modeArray[6]);
+			} else {
+				sap.m.MessageBox.error("Please choose a District from the Menu");
 			}
-			table.setModel(modeArray[0]);
-			table1.setModel(modeArray[1]);
-			table2.setModel(modeArray[2]);
-			table3.setModel(modeArray[3]);
-			table4.setModel(modeArray[4]);
-			table5.setModel(modeArray[5]);
-			table6.setModel(modeArray[6]);
 		},
 		onBtnPress2: function (oEvent) {
-			var that = this;
-	
-						var sDate = that.getView().byId("Date3").getDateValue();
-						var today = new Date(sDate);
-						today.setDate(today.getDate());
-						var dd = today.getDate();
-						var mm = today.getMonth() + 1;
-						var yyyy = today.getFullYear();
-						if (dd < 10) {
-							dd = '0' + dd;
-						}
-						if (mm < 10) {
-							mm = '0' + mm;
-						}
-						today = dd + '-' + mm + '-' + yyyy;
+			var oCenter = this.getView().byId("centers").getSelectedKey();
+			if (oCenter !== '') {
+				var sDate = this.getView().byId("Date3").getDateValue();
+				var today = new Date(sDate);
+				today.setDate(today.getDate());
+				var dd = today.getDate();
+				var mm = today.getMonth() + 1;
+				var yyyy = today.getFullYear();
+				if (dd < 10) {
+					dd = '0' + dd;
+				}
+				if (mm < 10) {
+					mm = '0' + mm;
+				}
+				today = dd + '-' + mm + '-' + yyyy;
 
-					var oCenter = this.getView().byId("centers").getSelectedKey();
-					var table = this.getView().byId("table2Id");
-					var vBox = this.getView().byId("Vbox3");
-					var dateModel = this.getView().getModel("dates");
-					dateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
-					vBox.setVisible(true);
-						var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + oCenter + "&date=" + today;
-						var oCenterModel = new sap.ui.model.json.JSONModel(sPath);
 
-						console.log(oCenterModel);
-					table.setModel(oCenterModel);
-					this.getView().setModel(oCenterModel, "center");
-				},
-		onCheckbox1: function(oEvent){
+				var table = this.getView().byId("table2Id");
+				var vBox = this.getView().byId("Vbox3");
+				var dateModel = this.getView().getModel("dates");
+				dateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
+				vBox.setVisible(true);
+				var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + oCenter + "&date=" + today;
+				var oCenterModel = new sap.ui.model.json.JSONModel(sPath);
+				table.setModel(oCenterModel);
+				this.getView().setModel(oCenterModel, "center");
+			} else {
+
+				sap.m.MessageBox.error("Please Select a Center from the Menu");
+			}
+		},
+		onCheckbox1: function (oEvent) {
 			var filtermodel = new sap.ui.model.json.JSONModel();
 			var filterArray = [];
 			var oData1 = { filter: filterArray };
@@ -479,38 +491,38 @@ sap.ui.define([
 			oBinding4.filter([]);
 			oBinding5.filter([]);
 			oBinding6.filter([]);
-			if (this.getView().byId("check118").getSelected()){
-				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "18");
+			if (this.getView().byId("check118").getSelected()) {
+				oFilter = new sap.ui.model.Filter("min_age_limit", "EQ", "18");
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("check145").getSelected()){
-				oFilter= new sap.ui.model.Filter("min_age_limit", "EQ", "45");
+			if (this.getView().byId("check145").getSelected()) {
+				oFilter = new sap.ui.model.Filter("min_age_limit", "EQ", "45");
 				filterArray.push(oFilter);
 			}
 
 
-			if (this.getView().byId("check1covaxin").getSelected()){
-				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "COVAXIN");
+			if (this.getView().byId("check1covaxin").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "COVAXIN");
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("checkcovishield").getSelected()){
-				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
+			if (this.getView().byId("checkcovishield").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("check1sputnik").getSelected()){
-				oFilter= new sap.ui.model.Filter("vaccine", "EQ", "SPUTNIK V");
+			if (this.getView().byId("check1sputnik").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "SPUTNIK V");
 				filterArray.push(oFilter);
 			}
-			if (this.getView().byId("check1free").getSelected()){
-				oFilter= new sap.ui.model.Filter("fee_type", "EQ", "Free");
+			if (this.getView().byId("check1free").getSelected()) {
+				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Free");
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("check1paid").getSelected()){
-				oFilter= new sap.ui.model.Filter("fee_type", "EQ", "Paid");
+			if (this.getView().byId("check1paid").getSelected()) {
+				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Paid");
 				filterArray.push(oFilter);
 			}
 			oBinding.filter(filterArray);

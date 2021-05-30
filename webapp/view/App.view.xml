@@ -4,17 +4,20 @@
 	xmlns:viz="sap.viz.ui5.controls"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
+	xmlns:tnt="sap.tnt"
 	xmlns:form="sap.ui.layout.form"
 	xmlns:l="sap.ui.layout"
 	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 	controllerName="sap.ui.demo.todo.controller.App"
 	displayBlock="true"
 >
-<Toolbar>	
-	<ToolbarSpacer/>
-<Label text="Dark Mode" ></Label>
-<Switch id="switch1" change="onSwitchChange" ></Switch>
-</Toolbar>
+<tnt:ToolHeader>
+		<Image src="/img/vaccine.png" />
+		<Text text="Vaccinex" wrapping="false" />
+		<ToolbarSpacer />
+		<Label text="Dark Mode" ></Label>
+		<Switch id="switch1" change="onSwitchChange" ></Switch>
+	</tnt:ToolHeader>
 	<App>
 		<Page>
 			<SplitApp
@@ -400,10 +403,8 @@
 
 					</FlexBox>
 				<VBox id="Vbox3" class="sapUiResponsiveMargin" visible= "false">
-						<Panel width="auto" class="sapUiResponsiveMargin">
-					<content>
-						<FlexBox justifyContent="Center" alignItems="Start" >
-						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{center>/centers/name}"
+					<FlexBox justifyContent="Center" alignItems="Start" >
+						<GenericTile class="tileLayout" header="{center>/centers/name}"
 						frameType="TwoByOne">
 						<TileContent footer="Timing: {center>/centers/from} to {center>/centers/to}">
 							<FeedContent contentText="{center>/centers/address},{center>/centers/block_name}, {center>/centers/district_name}"
@@ -411,6 +412,9 @@
 						</TileContent>
 					</GenericTile>
 				</FlexBox>
+						<Panel width="auto" class="sapUiResponsiveMargin">
+					<content>
+						
 						<Table id="table2Id" inset="false" items="{/centers/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
 							<columns>
 								<Column  importance="High">
