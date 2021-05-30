@@ -71,7 +71,7 @@
 									showFooter="true"/>
 								</FlexBox>
 									<FlexBox justifyContent="Center" alignItems="Start" >
-									<Button type ="Accept" text="Search" press="onBtnPress"></Button>	
+									<Button type ="Accept" text="Search" press="onBtnPress1"></Button>	
 									</FlexBox>			
 							</content>
 						</Panel>
@@ -83,14 +83,14 @@
 					<CheckBox
 						id = "check118"
 						text="18+"
-						select="onCheckbox"
+						select="onCheckbox1"
 					/>
-					<CheckBox id = "check145" text="45+" select="onCheckbox"/>
-					<CheckBox id = "check1covishield" text="Covishield" select="onCheckbox"/>
-					<CheckBox id = "check1covaxin" text="Covaxin" select="onCheckbox"/>
-					<CheckBox id = "check1sputnik" text="Sputnik V" select="onCheckbox"/>
-					<CheckBox id = "check1free" text="Free" select="onCheckbox"/>
-					<CheckBox id = "check1paid" text="Paid" select="onCheckbox"/>
+					<CheckBox id = "check145" text="45+" select="onCheckbox1"/>
+					<CheckBox id = "check1covishield" text="Covishield" select="onCheckbox1"/>
+					<CheckBox id = "check1covaxin" text="Covaxin" select="onCheckbox1"/>
+					<CheckBox id = "check1sputnik" text="Sputnik V" select="onCheckbox1"/>
+					<CheckBox id = "check1free" text="Free" select="onCheckbox1"/>
+					<CheckBox id = "check1paid" text="Paid" select="onCheckbox1"/>
 			</content>
 		</Panel>
 	</FlexBox>
