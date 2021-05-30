@@ -12,7 +12,7 @@
 	displayBlock="true"
 >
 <tnt:ToolHeader>
-		<Image src="/img/vaccine.png" />
+		<Image src="https://raw.githubusercontent.com/srijan9864/Vaccinex/master/webapp/img/Vaccine.png" />
 		<Text text="Vaccinex" wrapping="false" />
 		<ToolbarSpacer />
 		<Label text="Dark Mode" ></Label>
