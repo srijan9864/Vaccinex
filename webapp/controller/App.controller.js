@@ -245,8 +245,6 @@ sap.ui.define([
 			vBox.setVisible(true);
 			checboxes.setVisible(true);
 			var modeArray = [];
-			console.log(pincode);
-
 			for (var i = 0; i < 7; i++) {
 
 				var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(i);
