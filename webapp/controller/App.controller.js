@@ -348,10 +348,10 @@ sap.ui.define([
 			var oValidatedComboBox = oEvent.getSource();
 			var oSelectedKey = oValidatedComboBox.getSelectedKey();
 			var oDistrictModel = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/districts/" + oSelectedKey);
-			console.log(oEvent);
+			this.getView().byId("centers").destroyItems();
+			this.getView().byId("centers").setSelectedKey("");
 			this.getView().byId("district").setModel(oDistrictModel);
 			this.getView().byId("district1").setModel(oDistrictModel);
-
 		},
 		handleChange1: function (oEvent) {
 			var that = this;
