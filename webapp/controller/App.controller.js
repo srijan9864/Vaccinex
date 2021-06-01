@@ -82,13 +82,13 @@ sap.ui.define([
 			var data = {
 				'Vaccine': [{
 					"Vaccination": "Dose 1",
-					"Count": "156842545"
+					"Count": "168446528"
 				}, {
 					"Vaccination": "Dose 2",
-					"Count": "42281658"
+					"Count": "43389298"
 				}, {
 					"Vaccination": "Not Vaccinated",
-					"Count": "1153518077"
+					"Count": "1180787019"
 				}]
 			};
 			oModel.setData(data);
@@ -214,7 +214,7 @@ sap.ui.define([
 
 				return today;
 			}
-			
+
 			var table = this.getView().byId("tableId");
 			var table1 = this.getView().byId("tableId1");
 			var table2 = this.getView().byId("tableId2");
@@ -326,6 +326,14 @@ sap.ui.define([
 
 			if (this.getView().byId("checkpaid").getSelected()) {
 				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Paid");
+				filterArray.push(oFilter);
+			}
+			if (this.getView().byId("checkdose1").getSelected()) {
+				oFilter = new sap.ui.model.Filter("available_capacity_dose1", "NE", "0");
+				filterArray.push(oFilter);
+			}
+			if (this.getView().byId("checkdose2").getSelected()) {
+				oFilter = new sap.ui.model.Filter("available_capacity_dose2", "NE", "0");
 				filterArray.push(oFilter);
 			}
 			oBinding.filter(filterArray);
@@ -523,6 +531,14 @@ sap.ui.define([
 
 			if (this.getView().byId("check1paid").getSelected()) {
 				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Paid");
+				filterArray.push(oFilter);
+			}
+			if (this.getView().byId("check1dose1").getSelected()) {
+				oFilter = new sap.ui.model.Filter("available_capacity_dose1", "NE", "0");
+				filterArray.push(oFilter);
+			}
+			if (this.getView().byId("check1dose2").getSelected()) {
+				oFilter = new sap.ui.model.Filter("available_capacity_dose2", "NE", "0");
 				filterArray.push(oFilter);
 			}
 			oBinding.filter(filterArray);

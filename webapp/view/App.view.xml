@@ -52,7 +52,7 @@
 						id="detailDetail"
 						title="Search Slots By District"
 						backgroundDesign="Solid"
-						showNavButton="true"
+						showNavButton="{device>/isPhone}"
 						navButtonPress=".onPressDetailBack"
 					>
 					<FlexBox justifyContent="Center" alignItems="Start" >
@@ -94,6 +94,8 @@
 					<CheckBox id = "check1sputnik" text="Sputnik V" select="onCheckbox1"/>
 					<CheckBox id = "check1free" text="Free" select="onCheckbox1"/>
 					<CheckBox id = "check1paid" text="Paid" select="onCheckbox1"/>
+					<CheckBox id = "check1dose1" text="Dose 1" select="onCheckbox1"/>
+					<CheckBox id = "check1dose2" text="Dose 2" select="onCheckbox1"/>
 			</content>
 		</Panel>
 	</FlexBox>
@@ -107,6 +109,9 @@
 								</Column>
 								<Column>
 									<Text text="Availability"/>
+								</Column>
+								<Column>
+									<Text text="Availability by Dose"/>
 								</Column>
 								<Column >
 									<Text text="Age Limit"/>
@@ -125,7 +130,8 @@
 								<ColumnListItem>
 									<cells>
 										<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 										<ObjectStatus state="Information" text="{min_age_limit}+"/>
 										<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 										<ObjectStatus state="Information" text="{vaccine}"/>
@@ -146,6 +152,9 @@
 								<Column>
 									<Text text="Availability"/>
 								</Column>
+								<Column>
+									<Text text="Availability by Dose"/>
+								</Column>
 								<Column >
 									<Text text="Age Limit"/>
 								</Column>
@@ -163,7 +172,8 @@
 								<ColumnListItem>
 									<cells>
 										<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 										<ObjectStatus state="Information" text="{min_age_limit}+"/>
 										<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 										<ObjectStatus state="Information" text="{vaccine}"/>
@@ -184,6 +194,9 @@
 									<Column>
 										<Text text="Availability"/>
 									</Column>
+									<Column>
+										<Text text="Availability by Dose"/>
+									</Column>
 									<Column >
 										<Text text="Age Limit"/>
 									</Column>
@@ -201,7 +214,8 @@
 									<ColumnListItem>
 										<cells>
 											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 											<ObjectStatus state="Information" text="{min_age_limit}+"/>
 											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 											<ObjectStatus state="Information" text="{vaccine}"/>
@@ -222,6 +236,9 @@
 										<Column>
 											<Text text="Availability"/>
 										</Column>
+										<Column>
+											<Text text="Availability by Dose"/>
+										</Column>
 										<Column >
 											<Text text="Age Limit"/>
 										</Column>
@@ -239,7 +256,8 @@
 										<ColumnListItem>
 											<cells>
 												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-												<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+												<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+												<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 												<ObjectStatus state="Information" text="{min_age_limit}+"/>
 												<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 												<ObjectStatus state="Information" text="{vaccine}"/>
@@ -260,6 +278,9 @@
 											<Column>
 												<Text text="Availability"/>
 											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
 											<Column >
 												<Text text="Age Limit"/>
 											</Column>
@@ -277,7 +298,8 @@
 											<ColumnListItem>
 												<cells>
 													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-													<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+													<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+													<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 													<ObjectStatus state="Information" text="{min_age_limit}+"/>
 													<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 													<ObjectStatus state="Information" text="{vaccine}"/>
@@ -298,6 +320,9 @@
 												<Column>
 													<Text text="Availability"/>
 												</Column>
+												<Column>
+													<Text text="Availability by Dose"/>
+												</Column>
 												<Column >
 													<Text text="Age Limit"/>
 												</Column>
@@ -315,7 +340,8 @@
 												<ColumnListItem>
 													<cells>
 														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-														<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+														<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+														<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 														<ObjectStatus state="Information" text="{min_age_limit}+"/>
 														<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 														<ObjectStatus state="Information" text="{vaccine}"/>
@@ -353,7 +379,8 @@
 													<ColumnListItem>
 														<cells>
 															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-															<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+															<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+															<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 															<ObjectStatus state="Information" text="{min_age_limit}+"/>
 															<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 															<ObjectStatus state="Information" text="{vaccine}"/>
@@ -371,7 +398,7 @@
 						id="detail2"
 						title="Search Slots By Center"
 						backgroundDesign="Solid"
-						showNavButton="true"
+						showNavButton="{device>/isPhone}"
 						navButtonPress=".onPressDetailBack"
 					>
 					<FlexBox justifyContent="Center" alignItems="Start" >
@@ -423,6 +450,9 @@
 								<Column importance="Medium">
 									<Text text="Availability"/>
 								</Column>
+								<Column>
+									<Text text="Availability by Dose"/>
+								</Column>
 								<Column >
 									<Text text="Age Limit"/>
 								</Column>
@@ -437,7 +467,8 @@
 								<ColumnListItem>
 									<cells>
 										<ObjectStatus state="Information" text="{date}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 										<ObjectStatus state="Information" text="{min_age_limit}+"/>
 										<ObjectStatus state="Information" text="{vaccine}"/>
 										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
@@ -454,7 +485,7 @@
 						id="detail3"
 						title="Search Slots by Pincode"
 						backgroundDesign="Solid"
-						showNavButton="true"
+						showNavButton="{device>/isPhone}"
 						navButtonPress=".onPressDetailBack">
 						<FlexBox justifyContent="Center" alignItems="Start" >
 							<Panel  width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">	
@@ -485,6 +516,8 @@
 						<CheckBox id = "checksputnik" text="Sputnik V" select="onCheckbox"/>
 						<CheckBox id = "checkfree" text="Free" select="onCheckbox"/>
 						<CheckBox id = "checkpaid" text="Paid" select="onCheckbox"/>
+						<CheckBox id = "checkdose1" text="Dose 1" select="onCheckbox"/>
+						<CheckBox id = "checkdose2" text="Dose 2" select="onCheckbox"/>
 				</content>
 			</Panel>
 		</FlexBox>
@@ -498,6 +531,9 @@
 									</Column>
 									<Column>
 										<Text text="Availability"/>
+									</Column>
+									<Column>
+										<Text text="Availability by Dose"/>
 									</Column>
 									<Column >
 										<Text text="Age Limit"/>
@@ -516,7 +552,8 @@
 									<ColumnListItem>
 										<cells>
 											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 											<ObjectStatus state="Information" text="{min_age_limit}+"/>
 											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 											<ObjectStatus state="Information" text="{vaccine}"/>
@@ -537,6 +574,9 @@
 									<Column>
 										<Text text="Availability"/>
 									</Column>
+									<Column>
+										<Text text="Availability by Dose"/>
+									</Column>
 									<Column >
 										<Text text="Age Limit"/>
 									</Column>
@@ -554,14 +594,15 @@
 									<ColumnListItem>
 										<cells>
 											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 											<ObjectStatus state="Information" text="{min_age_limit}+"/>
 											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 											<ObjectStatus state="Information" text="{vaccine}"/>
 											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 										</cells>
 									</ColumnListItem>
-								</items>
+							</items>
 							</Table>
 							</content>
 						</Panel>
@@ -574,6 +615,9 @@
 										</Column>
 										<Column>
 											<Text text="Availability"/>
+										</Column>
+										<Column>
+											<Text text="Availability by Dose"/>
 										</Column>
 										<Column >
 											<Text text="Age Limit"/>
@@ -592,14 +636,15 @@
 										<ColumnListItem>
 											<cells>
 												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-												<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+												<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+												<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 												<ObjectStatus state="Information" text="{min_age_limit}+"/>
 												<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 												<ObjectStatus state="Information" text="{vaccine}"/>
 												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 											</cells>
 										</ColumnListItem>
-									</items>
+												</items>
 								</Table>
 								</content>
 							</Panel>
@@ -612,6 +657,9 @@
 											</Column>
 											<Column>
 												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
 											</Column>
 											<Column >
 												<Text text="Age Limit"/>
@@ -630,14 +678,15 @@
 											<ColumnListItem>
 												<cells>
 													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-													<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+													<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+													<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 													<ObjectStatus state="Information" text="{min_age_limit}+"/>
 													<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 													<ObjectStatus state="Information" text="{vaccine}"/>
 													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 												</cells>
 											</ColumnListItem>
-										</items>
+									</items>
 									</Table>
 									</content>
 								</Panel>
@@ -650,6 +699,9 @@
 												</Column>
 												<Column>
 													<Text text="Availability"/>
+												</Column>
+												<Column>
+													<Text text="Availability by Dose"/>
 												</Column>
 												<Column >
 													<Text text="Age Limit"/>
@@ -668,14 +720,15 @@
 												<ColumnListItem>
 													<cells>
 														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-														<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+														<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+														<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 														<ObjectStatus state="Information" text="{min_age_limit}+"/>
 														<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 														<ObjectStatus state="Information" text="{vaccine}"/>
 														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 													</cells>
 												</ColumnListItem>
-											</items>
+										 </items>
 										</Table>
 										</content>
 									</Panel>
@@ -688,6 +741,9 @@
 													</Column>
 													<Column>
 														<Text text="Availability"/>
+													</Column>
+													<Column>
+														<Text text="Availability by Dose"/>
 													</Column>
 													<Column >
 														<Text text="Age Limit"/>
@@ -706,14 +762,15 @@
 													<ColumnListItem>
 														<cells>
 															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-															<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+															<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+															<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 															<ObjectStatus state="Information" text="{min_age_limit}+"/>
 															<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 															<ObjectStatus state="Information" text="{vaccine}"/>
 															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 														</cells>
 													</ColumnListItem>
-												</items>
+																				</items>
 											</Table>
 											</content>
 										</Panel>
@@ -726,6 +783,9 @@
 														</Column>
 														<Column>
 															<Text text="Availability"/>
+														</Column>
+														<Column>
+															<Text text="Availability by Dose"/>
 														</Column>
 														<Column >
 															<Text text="Age Limit"/>
@@ -744,14 +804,15 @@
 														<ColumnListItem>
 															<cells>
 																<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-																<ObjectStatus state="{= ${available_capacity} !== 0 ? 'Success' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+																<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+																<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 																<ObjectStatus state="Information" text="{min_age_limit}+"/>
 																<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 																<ObjectStatus state="Information" text="{vaccine}"/>
 																<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
 															</cells>
 														</ColumnListItem>
-													</items>
+												</items>
 												</Table>		
 											</content>
 											</Panel>
