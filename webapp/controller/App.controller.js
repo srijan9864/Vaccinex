@@ -513,7 +513,7 @@ sap.ui.define([
 				filterArray.push(oFilter);
 			}
 
-			if (this.getView().byId("checkcovishield").getSelected()) {
+			if (this.getView().byId("check1covishield").getSelected()) {
 				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
 				filterArray.push(oFilter);
 			}
