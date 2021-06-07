@@ -1,4 +1,4 @@
-![OpenUI5 logo](http://openui5.org/images/OpenUI5_new_big_side.png)
+![OpenUI5 logo](https://raw.githubusercontent.com/srijan9864/Vaccinex/master/webapp/img/Vaccine.png)
 
 # Vaccinex
 
