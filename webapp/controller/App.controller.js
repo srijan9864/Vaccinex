@@ -82,13 +82,13 @@ sap.ui.define([
 			var data = {
 				'Vaccine': [{
 					"Vaccination": "Dose 1",
-					"Count": "168446528"
+					"Count": "445713647"
 				}, {
 					"Vaccination": "Dose 2",
-					"Count": "43389298"
+					"Count": "127094225"
 				}, {
 					"Vaccination": "Not Vaccinated",
-					"Count": "1180787019"
+					"Count": "822501319"
 				}]
 			};
 			oModel.setData(data);
