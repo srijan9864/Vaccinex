@@ -583,26 +583,26 @@ sap.ui.define([
 			var location;
 			console.log(location);
 			//if (location == 'null' || location == null) {
-				getLocation();
-				function getLocation() {
-					if (navigator.geolocation) {
-						navigator.geolocation.getCurrentPosition(showPosition, error);
-					} else {
-						location = "Geolocation is not supported by this browser.";
-					}
+			getLocation();
+			function getLocation() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(showPosition, error);
+				} else {
+					location = "Geolocation is not supported by this browser.";
 				}
+			}
 
-				function showPosition(position) {
-					console.log("test");
-					location = position.coords.longitude +
-						";" + position.coords.latitude + ";0.0";
-					//localStorage.setItem('location', location);
-					console.log(location);
-					loadGeoMap(location, that);
-				}
-				function error(err) {
-					console.warn(`ERROR(${err.code}): ${err.message}`);
-				  }
+			function showPosition(position) {
+				console.log("test");
+				location = position.coords.longitude +
+					";" + position.coords.latitude + ";0.0";
+				//localStorage.setItem('location', location);
+				console.log(location);
+				loadGeoMap(location, that);
+			}
+			function error(err) {
+				console.warn(`ERROR(${err.code}): ${err.message}`);
+			}
 			//}
 			// else {
 			// 	loadGeoMap(location, that);
@@ -640,9 +640,9 @@ sap.ui.define([
 				const splitArray = location.split(";");
 				var lat = splitArray[1];
 				var long = splitArray[0];
-				console.log("here"+location);
+				console.log("here" + location);
 				oGeoMap.destroyVos();
-				
+
 				var oVaccineCenters = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/appointment/centers/public/findByLatLong?lat=" + lat + "&long=" + long);
 				that.getView().setModel(oVaccineCenters, "myloc");
 				var i = 0;
@@ -661,15 +661,24 @@ sap.ui.define([
 					icon: "sap-icon://syringe",
 					selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
 					click: onClick
-	
+
 				});
 				// When a user clicks on a spot, center the map and display a detail window
 				function onClick(oEvent) {
 					var clickedSpot = oEvent.getSource();
-					console.log(clickedSpot);
 					var pos = clickedSpot.getPosition().split(";");
 					oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
-					oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: 'Center', offsetX: 0, offsetY: 0, });
+					var oData = oVaccineCenters.getData();
+					var index = getIndex(pos[0], pos[1], oData.centers) ? getIndex(pos[0], pos[1], oData.centers) : 0;
+					oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: oData.centers[index].name, offsetX: 0, offsetY: 0, });
+				};
+				function getIndex(long, lat, centers) {
+					for (var i = 0; i < centers.length; i++) {
+						if (centers[i].lat == lat && centers[i].long == long) {
+							return i;
+							break;
+						}
+					}
 				};
 				console.log(oSpotTemplate);
 				// Create Spot collection and bind to GeoMap
@@ -679,7 +688,7 @@ sap.ui.define([
 						template: oSpotTemplate
 					}
 				});
-	
+
 				oGeoMap.setMapConfiguration(oMapConfig);
 				oGeoMap.addVo(oSpotsCollection);
 				oGeoMap.setInitialZoom(14);
@@ -692,7 +701,7 @@ sap.ui.define([
 			oGeoMap.destroyVos();
 			console.log("clicked");
 			var pos = details.getParameters().pos;
-			console.log("pos"+pos);
+			console.log("pos" + pos);
 			const splitArray = pos.split(";");
 			var lat = splitArray[1];
 			var long = splitArray[0];
@@ -701,7 +710,6 @@ sap.ui.define([
 			console.log(oVaccineCenters);
 			//Create template spot
 			var i = 0;
-			var j = 0;
 			var oSpotTemplate = new sap.ui.vbm.Spot({
 				position: {
 					path: "vaccinecenters>/centers",
@@ -725,7 +733,19 @@ sap.ui.define([
 				console.log(clickedSpot);
 				var pos = clickedSpot.getPosition().split(";");
 				oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
-				oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: 'Center', offsetX: 0, offsetY: 0, });
+				var oData = oVaccineCenters.getData();
+				console.log(oData.centers[0]);
+				var index = getIndex(pos[0], pos[1], oData.centers) ? getIndex(pos[0], pos[1], oData.centers) : 0;
+				console.log(index);
+				oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: oData.centers[index].name, offsetX: 0, offsetY: 0, });
+			};
+			function getIndex(long, lat, centers) {
+				for (var i = 0; i < centers.length; i++) {
+					if (centers[i].lat == lat && centers[i].long == long) {
+						return i;
+						break;
+					}
+				}
 			};
 			console.log(oSpotTemplate);
 			// Create Spot collection and bind to GeoMap
