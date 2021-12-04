@@ -135,6 +135,36 @@ sap.ui.define([
 				});
 			oVizFrame.addFeed(feedSize);
 			oVizFrame.addFeed(feedColor);
+			var oGeoMap = this.getView().byId("geoMap");
+			var oMapConfig = {
+				"MapProvider":
+					[
+						{
+							"name": "OSM",
+							"type": "",
+							"description": "",
+							"tileX": "256",
+							"tileY": "256",
+							"maxLOD": "20",
+							"copyright": "Tiles Courtesy of OpenMapTiles",
+							"Source": [{
+								"id": "s1",
+								"url": "https://a.tile.openstreetmap.org/{LOD}/{X}/{Y}.png"
+							}]
+						}],
+				"MapLayerStacks":
+					[
+						{
+							"name": "Default",
+							"MapLayer": [
+								{
+									"name": "OSM",
+									"refMapProvider": "OSM"
+								}]
+						}]
+			};
+			oGeoMap.setInitialZoom('6');
+			oGeoMap.setMapConfiguration(oMapConfig);
 		},
 
 		onExit: function () {
@@ -548,13 +578,15 @@ sap.ui.define([
 			oBinding6.filter(filterArray);
 		},
 		loadMap: function (oEvent) {
-			var location = localStorage.getItem('location');
+			var that = this;
+			//var location = localStorage.getItem('location');
+			var location;
 			console.log(location);
-			if (location == 'null' || location == null) {
+			//if (location == 'null' || location == null) {
 				getLocation();
 				function getLocation() {
 					if (navigator.geolocation) {
-						navigator.geolocation.getCurrentPosition(showPosition);
+						navigator.geolocation.getCurrentPosition(showPosition, error);
 					} else {
 						location = "Geolocation is not supported by this browser.";
 					}
@@ -564,89 +596,103 @@ sap.ui.define([
 					console.log("test");
 					location = position.coords.longitude +
 						";" + position.coords.latitude + ";0.0";
-					localStorage.setItem('location', location);
+					//localStorage.setItem('location', location);
 					console.log(location);
+					loadGeoMap(location, that);
 				}
-			}
-			var oGeoMap = this.getView().byId("geoMap");
-			oGeoMap.setInitialPosition(location);
-			var oMapConfig = {
-				"MapProvider":
-					[
-						{
-							"name": "OSM",
-							"type": "",
-							"description": "",
-							"tileX": "256",
-							"tileY": "256",
-							"maxLOD": "20",
-							"copyright": "Tiles Courtesy of OpenMapTiles",
-							"Source": [{
-								"id": "s1",
-								"url": "https://a.tile.openstreetmap.org/{LOD}/{X}/{Y}.png"
-							}]
-						}],
-				"MapLayerStacks":
-					[
-						{
-							"name": "Default",
-							"MapLayer": [
-								{
-									"name": "OSM",
-									"refMapProvider": "OSM"
+				function error(err) {
+					console.warn(`ERROR(${err.code}): ${err.message}`);
+				  }
+			//}
+			// else {
+			// 	loadGeoMap(location, that);
+			// }
+			function loadGeoMap(location, that) {
+
+				var oGeoMap = that.getView().byId("geoMap");
+				var oMapConfig = {
+					"MapProvider":
+						[
+							{
+								"name": "OSM",
+								"type": "",
+								"description": "",
+								"tileX": "256",
+								"tileY": "256",
+								"maxLOD": "20",
+								"copyright": "Tiles Courtesy of OpenMapTiles",
+								"Source": [{
+									"id": "s1",
+									"url": "https://a.tile.openstreetmap.org/{LOD}/{X}/{Y}.png"
 								}]
-						}]
-			};
-			const splitArray = location.split(";");
-			var lat = splitArray[1];
-			var long = splitArray[0];
-			oGeoMap.destroyVos();
-			var oVaccineCenters = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/appointment/centers/public/findByLatLong?lat=" + lat + "&long=" + long);
-			this.getView().setModel(oVaccineCenters, "myloc");
-			var i = 0;
-			var oSpotTemplate = new sap.ui.vbm.Spot({
-				position: {
-					path: "myloc>/centers",
-					formatter: function (centers) {
-						console.log(centers);
-						var oreturn = centers[i].long + ";" + centers[i].lat + ";0.0";
-						i = i + 1;
-						console.log(oreturn);
-						return oreturn;
+							}],
+					"MapLayerStacks":
+						[
+							{
+								"name": "Default",
+								"MapLayer": [
+									{
+										"name": "OSM",
+										"refMapProvider": "OSM"
+									}]
+							}]
+				};
+				const splitArray = location.split(";");
+				var lat = splitArray[1];
+				var long = splitArray[0];
+				console.log("here"+location);
+				oGeoMap.destroyVos();
+				
+				var oVaccineCenters = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/appointment/centers/public/findByLatLong?lat=" + lat + "&long=" + long);
+				that.getView().setModel(oVaccineCenters, "myloc");
+				var i = 0;
+				var oSpotTemplate = new sap.ui.vbm.Spot({
+					position: {
+						path: "myloc>/centers",
+						formatter: function (centers) {
+							console.log(centers);
+							var oreturn = centers[i].long + ";" + centers[i].lat + ";0.0";
+							i = i + 1;
+							console.log(oreturn);
+							return oreturn;
+						}
+					},
+					type: sap.ui.vbm.SemanticType.Success,
+					icon: "sap-icon://syringe",
+					selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
+					click: onClick
+	
+				});
+				// When a user clicks on a spot, center the map and display a detail window
+				function onClick(oEvent) {
+					var clickedSpot = oEvent.getSource();
+					console.log(clickedSpot);
+					var pos = clickedSpot.getPosition().split(";");
+					oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
+					oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: 'Center', offsetX: 0, offsetY: 0, });
+				};
+				console.log(oSpotTemplate);
+				// Create Spot collection and bind to GeoMap
+				var oSpotsCollection = new sap.ui.vbm.Spots({
+					items: {
+						path: "myloc>/centers",
+						template: oSpotTemplate
 					}
-				},
-				type: sap.ui.vbm.SemanticType.Success,
-				icon: "sap-icon://syringe",
-				selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
-				click: onClick
-
-			});
-			// When a user clicks on a spot, center the map and display a detail window
-			function onClick(oEvent) {
-				var clickedSpot = oEvent.getSource();
-				console.log(clickedSpot);
-				var pos = clickedSpot.getPosition().split(";");
-				oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
-				oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: 'Center', offsetX: 0, offsetY: 0, });
-			};
-			console.log(oSpotTemplate);
-			// Create Spot collection and bind to GeoMap
-			var oSpotsCollection = new sap.ui.vbm.Spots({
-				items: {
-					path: "myloc>/centers",
-					template: oSpotTemplate
-				}
-			});
-
-			oGeoMap.setMapConfiguration(oMapConfig);
-			oGeoMap.addVo(oSpotsCollection);
+				});
+	
+				oGeoMap.setMapConfiguration(oMapConfig);
+				oGeoMap.addVo(oSpotsCollection);
+				oGeoMap.setInitialZoom(14);
+				oGeoMap.setInitialPosition(location);
+				oGeoMap.getModel().updateBindings();
+			}
 		},
 		onMapClick: function (details) {
 			var oGeoMap = this.getView().byId("geoMap");
 			oGeoMap.destroyVos();
 			console.log("clicked");
 			var pos = details.getParameters().pos;
-			console.log(pos);
+			console.log("pos"+pos);
 			const splitArray = pos.split(";");
 			var lat = splitArray[1];
 			var long = splitArray[0];
@@ -673,14 +719,6 @@ sap.ui.define([
 				click: onClick
 
 			});
-			// var oSpotTemplate1 = new sap.ui.vbm.Spot({
-			// 	position: pos,
-			// 	type: sap.ui.vbm.SemanticType.Default,
-			// 	text: "Pinned",
-			// 	selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
-
-
-			// });
 			// When a user clicks on a spot, center the map and display a detail window
 			function onClick(oEvent) {
 				var clickedSpot = oEvent.getSource();
