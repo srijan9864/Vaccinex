@@ -82,13 +82,13 @@ sap.ui.define([
 			var data = {
 				'Vaccine': [{
 					"Vaccination": "Dose 1",
-					"Count": "445713647"
+					"Count": "783523934"
 				}, {
 					"Vaccination": "Dose 2",
-					"Count": "127094225"
+					"Count": "436476064"
 				}, {
 					"Vaccination": "Not Vaccinated",
-					"Count": "822501319"
+					"Count": "179013224"
 				}]
 			};
 			oModel.setData(data);
@@ -196,73 +196,73 @@ sap.ui.define([
 		onBtnPress: function (oEvent) {
 			var pincode = this.getView().byId("pincode").getValue();
 			if (pincode !== '') {
-			var that = this;
-			function getDate(n) {
-				var sDate = that.getView().byId("Date1").getDateValue();
-				var today = new Date(sDate);
-				today.setDate(today.getDate() + n);
-				var dd = today.getDate();
-				var mm = today.getMonth() + 1;
-				var yyyy = today.getFullYear();
-				if (dd < 10) {
-					dd = '0' + dd;
-				}
-				if (mm < 10) {
-					mm = '0' + mm;
-				}
-				var today = dd + '-' + mm + '-' + yyyy;
+				var that = this;
+				function getDate(n) {
+					var sDate = that.getView().byId("Date1").getDateValue();
+					var today = new Date(sDate);
+					today.setDate(today.getDate() + n);
+					var dd = today.getDate();
+					var mm = today.getMonth() + 1;
+					var yyyy = today.getFullYear();
+					if (dd < 10) {
+						dd = '0' + dd;
+					}
+					if (mm < 10) {
+						mm = '0' + mm;
+					}
+					var today = dd + '-' + mm + '-' + yyyy;
 
-				return today;
+					return today;
+				}
+
+				var table = this.getView().byId("tableId");
+				var table1 = this.getView().byId("tableId1");
+				var table2 = this.getView().byId("tableId2");
+				var table3 = this.getView().byId("tableId3");
+				var table4 = this.getView().byId("tableId4");
+				var table5 = this.getView().byId("tableId5");
+				var table6 = this.getView().byId("tableId6");
+				var vBox = this.getView().byId("Vbox1");
+				var checboxes = this.getView().byId("checboxpanel");
+
+				var dateModel = this.getView().getModel("dates");
+				dateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
+				var dateData = {};
+				dateData = {
+					dates: {
+						today: getDate(0),
+						today_1: getDate(1),
+						today_2: getDate(2),
+						today_3: getDate(3),
+						today_4: getDate(4),
+						today_5: getDate(5),
+						today_6: getDate(6)
+					}
+				};
+
+				dateModel.setData(dateData);
+				this.getView().setModel(dateModel, "dates");
+				vBox.setVisible(true);
+				checboxes.setVisible(true);
+				var modeArray = [];
+				for (var i = 0; i < 7; i++) {
+
+					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(i);
+					var oPinModel = new sap.ui.model.json.JSONModel(sPath);
+					modeArray.push(oPinModel);
+					sPath = "";
+					oPinModel = undefined;
+				}
+				table.setModel(modeArray[0]);
+				table1.setModel(modeArray[1]);
+				table2.setModel(modeArray[2]);
+				table3.setModel(modeArray[3]);
+				table4.setModel(modeArray[4]);
+				table5.setModel(modeArray[5]);
+				table6.setModel(modeArray[6]);
+			} else {
+				sap.m.MessageBox.error("Please enter a Pincode");
 			}
-
-			var table = this.getView().byId("tableId");
-			var table1 = this.getView().byId("tableId1");
-			var table2 = this.getView().byId("tableId2");
-			var table3 = this.getView().byId("tableId3");
-			var table4 = this.getView().byId("tableId4");
-			var table5 = this.getView().byId("tableId5");
-			var table6 = this.getView().byId("tableId6");
-			var vBox = this.getView().byId("Vbox1");
-			var checboxes = this.getView().byId("checboxpanel");
-
-			var dateModel = this.getView().getModel("dates");
-			dateModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
-			var dateData = {};
-			dateData = {
-				dates: {
-					today: getDate(0),
-					today_1: getDate(1),
-					today_2: getDate(2),
-					today_3: getDate(3),
-					today_4: getDate(4),
-					today_5: getDate(5),
-					today_6: getDate(6)
-				}
-			};
-
-			dateModel.setData(dateData);
-			this.getView().setModel(dateModel, "dates");
-			vBox.setVisible(true);
-			checboxes.setVisible(true);
-			var modeArray = [];
-			for (var i = 0; i < 7; i++) {
-
-				var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(i);
-				var oPinModel = new sap.ui.model.json.JSONModel(sPath);
-				modeArray.push(oPinModel);
-				sPath = "";
-				oPinModel = undefined;
-			}
-			table.setModel(modeArray[0]);
-			table1.setModel(modeArray[1]);
-			table2.setModel(modeArray[2]);
-			table3.setModel(modeArray[3]);
-			table4.setModel(modeArray[4]);
-			table5.setModel(modeArray[5]);
-			table6.setModel(modeArray[6]);
-		} else {
-			sap.m.MessageBox.error("Please enter a Pincode");
-		}
 		},
 
 		onSwitchChange: function (sValue) {
@@ -546,6 +546,160 @@ sap.ui.define([
 			oBinding4.filter(filterArray);
 			oBinding5.filter(filterArray);
 			oBinding6.filter(filterArray);
+		},
+		loadMap: function (oEvent) {
+			var location = localStorage.getItem('location');
+			console.log(location);
+			if (location == 'null' || location == null) {
+				getLocation();
+				function getLocation() {
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(showPosition);
+					} else {
+						location = "Geolocation is not supported by this browser.";
+					}
+				}
+
+				function showPosition(position) {
+					console.log("test");
+					location = position.coords.longitude +
+						";" + position.coords.latitude + ";0.0";
+					localStorage.setItem('location', location);
+					console.log(location);
+				}
+			}
+			var oGeoMap = this.getView().byId("geoMap");
+			oGeoMap.setInitialPosition(location);
+			var oMapConfig = {
+				"MapProvider":
+					[
+						{
+							"name": "OSM",
+							"type": "",
+							"description": "",
+							"tileX": "256",
+							"tileY": "256",
+							"maxLOD": "20",
+							"copyright": "Tiles Courtesy of OpenMapTiles",
+							"Source": [{
+								"id": "s1",
+								"url": "https://a.tile.openstreetmap.org/{LOD}/{X}/{Y}.png"
+							}]
+						}],
+				"MapLayerStacks":
+					[
+						{
+							"name": "Default",
+							"MapLayer": [
+								{
+									"name": "OSM",
+									"refMapProvider": "OSM"
+								}]
+						}]
+			};
+			const splitArray = location.split(";");
+			var lat = splitArray[1];
+			var long = splitArray[0];
+			oGeoMap.destroyVos();
+			var oVaccineCenters = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/appointment/centers/public/findByLatLong?lat=" + lat + "&long=" + long);
+			this.getView().setModel(oVaccineCenters, "myloc");
+			var i = 0;
+			var oSpotTemplate = new sap.ui.vbm.Spot({
+				position: {
+					path: "myloc>/centers",
+					formatter: function (centers) {
+						console.log(centers);
+						var oreturn = centers[i].long + ";" + centers[i].lat + ";0.0";
+						i = i + 1;
+						console.log(oreturn);
+						return oreturn;
+					}
+				},
+				type: sap.ui.vbm.SemanticType.Success,
+				icon: "sap-icon://syringe",
+				selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
+				click: onClick
+
+			});
+			// When a user clicks on a spot, center the map and display a detail window
+			function onClick(oEvent) {
+				var clickedSpot = oEvent.getSource();
+				console.log(clickedSpot);
+				var pos = clickedSpot.getPosition().split(";");
+				oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
+				oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: 'Center', offsetX: 0, offsetY: 0, });
+			};
+			console.log(oSpotTemplate);
+			// Create Spot collection and bind to GeoMap
+			var oSpotsCollection = new sap.ui.vbm.Spots({
+				items: {
+					path: "myloc>/centers",
+					template: oSpotTemplate
+				}
+			});
+
+			oGeoMap.setMapConfiguration(oMapConfig);
+			oGeoMap.addVo(oSpotsCollection);
+		},
+		onMapClick: function (details) {
+			var oGeoMap = this.getView().byId("geoMap");
+			oGeoMap.destroyVos();
+			console.log("clicked");
+			var pos = details.getParameters().pos;
+			console.log(pos);
+			const splitArray = pos.split(";");
+			var lat = splitArray[1];
+			var long = splitArray[0];
+			var oVaccineCenters = new sap.ui.model.json.JSONModel("https://cdn-api.co-vin.in/api/v2/appointment/centers/public/findByLatLong?lat=" + lat + "&long=" + long);
+			this.getView().setModel(oVaccineCenters, "vaccinecenters");
+			console.log(oVaccineCenters);
+			//Create template spot
+			var i = 0;
+			var j = 0;
+			var oSpotTemplate = new sap.ui.vbm.Spot({
+				position: {
+					path: "vaccinecenters>/centers",
+					formatter: function (centers) {
+						console.log(centers);
+						var oreturn = centers[i].long + ";" + centers[i].lat + ";0.0";
+						i = i + 1;
+						console.log(oreturn);
+						return oreturn;
+					}
+				},
+				type: sap.ui.vbm.SemanticType.Success,
+				icon: "sap-icon://syringe",
+				selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
+				click: onClick
+
+			});
+			// var oSpotTemplate1 = new sap.ui.vbm.Spot({
+			// 	position: pos,
+			// 	type: sap.ui.vbm.SemanticType.Default,
+			// 	text: "Pinned",
+			// 	selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
+
+
+			// });
+			// When a user clicks on a spot, center the map and display a detail window
+			function onClick(oEvent) {
+				var clickedSpot = oEvent.getSource();
+				console.log(clickedSpot);
+				var pos = clickedSpot.getPosition().split(";");
+				oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
+				oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: 'Center', offsetX: 0, offsetY: 0, });
+			};
+			console.log(oSpotTemplate);
+			// Create Spot collection and bind to GeoMap
+			var oSpotsCollection = new sap.ui.vbm.Spots({
+				items: {
+					path: "vaccinecenters>/centers",
+					template: oSpotTemplate
+				}
+			});
+			//oSpotsCollection.addItem(oSpotTemplate1);
+			console.log(oSpotsCollection);
+			oGeoMap.addVo(oSpotsCollection);
 		}
 
 	});

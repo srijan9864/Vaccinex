@@ -2,6 +2,8 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core"
 	xmlns:viz="sap.viz.ui5.controls"
+	xmlns:vbm="sap.ui.vbm"
+	xmlns:vk="sap.ui.vk"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
 	xmlns:tnt="sap.tnt"
@@ -11,12 +13,18 @@
 	controllerName="sap.ui.demo.todo.controller.App"
 	displayBlock="true"
 >
-<tnt:ToolHeader>
-		<Image src="https://raw.githubusercontent.com/srijan9864/Vaccinex/master/webapp/img/Vaccine.png" />
-		<Text text="Vaccinex" wrapping="false" />
-		<ToolbarSpacer />
-		<Label text="Dark Mode" ></Label>
-		<Switch id="switch1" change="onSwitchChange" ></Switch>
+	<tnt:ToolHeader>
+		<Image src="https://raw.githubusercontent.com/srijan9864/Vaccinex/master/webapp/img/Vaccine.png"/>
+		<Text
+			text="Vaccinex"
+			wrapping="false"
+		/>
+		<ToolbarSpacer/>
+		<Label text="Dark Mode"/>
+		<Switch
+			id="switch1"
+			change="onSwitchChange"
+		/>
 	</tnt:ToolHeader>
 	<App>
 		<Page>
@@ -34,17 +42,16 @@
 						navButtonPress=".onPressDetailBack"
 					>
 						<content>
-
 							<FlexBox
 								justifyContent="Center"
 								alignItems="Start"
 							>
-									<viz:VizFrame
-										xmlns="sap.viz"
-										id="idpiechart"
-										vizType="pie"
-										legendVisible="true"
-									/>
+								<viz:VizFrame
+									xmlns="sap.viz"
+									id="idpiechart"
+									vizType="pie"
+									legendVisible="true"
+								/>
 							</FlexBox>
 						</content>
 					</Page>
@@ -55,224 +62,154 @@
 						showNavButton="{device>/isPhone}"
 						navButtonPress=".onPressDetailBack"
 					>
-					<FlexBox justifyContent="Center" alignItems="Start" >
-						<Panel  width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">	
-							<content>
-								<FlexBox justifyContent="Center" alignItems="Start" >
-							<ComboBox class="sapUiResponsiveMargin" id = "state" items ="{ path : '/states'}" placeholder = "Choose State" 	change="handleChange" >
-								<core:Item key = "{state_id}" text="{state_name}" />
-							</ComboBox>
-							<ComboBox  class="sapUiResponsiveMargin" id = "district"  placeholder = "Choose District" items ="{ path : '/districts'}">
-							<core:Item key = "{district_id}" text="{district_name}" />
-							</ComboBox>
-						</FlexBox>
-						<FlexBox justifyContent="Center" alignItems="Start" >
-								<DatePicker
-									id="Date2"
-									value="{dates>/dates/today}" valueFormat="dd-MM-yyyy"
-									displayFormat="long"
-									showFooter="true"/>
-								</FlexBox>
-									<FlexBox justifyContent="Center" alignItems="Start" >
-									<Button type ="Accept" text="Search" press="onBtnPress1"></Button>	
-									</FlexBox>			
-							</content>
-						</Panel>
-
-					</FlexBox>
-					<FlexBox justifyContent="Center" alignItems="Start" >
-					<Panel id="checboxpanel1" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region" visible="false">
-						<content>
-					<CheckBox
-						id = "check118"
-						text="18+"
-						select="onCheckbox1"
-					/>
-					<CheckBox id = "check145" text="45+" select="onCheckbox1"/>
-					<CheckBox id = "check1covishield" text="Covishield" select="onCheckbox1"/>
-					<CheckBox id = "check1covaxin" text="Covaxin" select="onCheckbox1"/>
-					<CheckBox id = "check1sputnik" text="Sputnik V" select="onCheckbox1"/>
-					<CheckBox id = "check1free" text="Free" select="onCheckbox1"/>
-					<CheckBox id = "check1paid" text="Paid" select="onCheckbox1"/>
-					<CheckBox id = "check1dose1" text="Dose 1" select="onCheckbox1"/>
-					<CheckBox id = "check1dose2" text="Dose 2" select="onCheckbox1"/>
-			</content>
-		</Panel>
-	</FlexBox>
-				<VBox id="Vbox2" class="sapUiResponsiveMargin" visible= "false">
-						<Panel expandable="true" headerText="{dates>/dates/today}" width="auto" class="sapUiResponsiveMargin">
-					<content>
-						<Table id="table1Id" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-							<columns>
-								<Column  importance="High">
-									<ObjectIdentifier text="Center"/>
-								</Column>
-								<Column>
-									<Text text="Availability"/>
-								</Column>
-								<Column>
-									<Text text="Availability by Dose"/>
-								</Column>
-								<Column >
-									<Text text="Age Limit"/>
-								</Column>
-								<Column >
-									<Text text="Fee Type"/>
-								</Column>
-								<Column>
-									<Text text="Vaccine"/>
-								</Column>
-								<Column importance="High">
-									<Text text="Book Slot"/>
-								</Column>
-							</columns>
-							<items>
-								<ColumnListItem>
-									<cells>
-										<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-										<ObjectStatus state="Information" text="{min_age_limit}+"/>
-										<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-										<ObjectStatus state="Information" text="{vaccine}"/>
-										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-									</cells>
-								</ColumnListItem>
-							</items>
-						</Table>
-					</content>
-				</Panel>
-				<Panel expandable="true" headerText="{dates>/dates/today_1}" width="auto" class="sapUiResponsiveMargin">
-					<content>
-						<Table id="table1Id1" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-							<columns>
-								<Column  importance="High">
-									<ObjectIdentifier text="Center"/>
-								</Column>
-								<Column>
-									<Text text="Availability"/>
-								</Column>
-								<Column>
-									<Text text="Availability by Dose"/>
-								</Column>
-								<Column >
-									<Text text="Age Limit"/>
-								</Column>
-								<Column >
-									<Text text="Fee Type"/>
-								</Column>
-								<Column>
-									<Text text="Vaccine"/>
-								</Column>
-								<Column importance="High">
-									<Text text="Book Slot"/>
-								</Column>
-							</columns>
-							<items>
-								<ColumnListItem>
-									<cells>
-										<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-										<ObjectStatus state="Information" text="{min_age_limit}+"/>
-										<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-										<ObjectStatus state="Information" text="{vaccine}"/>
-										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-									</cells>
-								</ColumnListItem>
-							</items>
-						</Table>
-						</content>
-					</Panel>
-					<Panel expandable="true" headerText="{dates>/dates/today_2}" width="auto" class="sapUiResponsiveMargin">
-						<content>
-							<Table id="table1Id2" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-								<columns>
-									<Column  importance="High">
-										<ObjectIdentifier text="Center"/>
-									</Column>
-									<Column>
-										<Text text="Availability"/>
-									</Column>
-									<Column>
-										<Text text="Availability by Dose"/>
-									</Column>
-									<Column >
-										<Text text="Age Limit"/>
-									</Column>
-									<Column >
-										<Text text="Fee Type"/>
-									</Column>
-									<Column>
-										<Text text="Vaccine"/>
-									</Column>
-									<Column importance="High">
-										<Text text="Book Slot"/>
-									</Column>
-								</columns>
-								<items>
-									<ColumnListItem>
-										<cells>
-											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-											<ObjectStatus state="Information" text="{min_age_limit}+"/>
-											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-											<ObjectStatus state="Information" text="{vaccine}"/>
-											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-										</cells>
-									</ColumnListItem>
-								</items>
-							</Table>
-							</content>
-						</Panel>
-						<Panel expandable="true" headerText="{dates>/dates/today_3}" width="auto" class="sapUiResponsiveMargin">
-							<content>
-								<Table id="table1Id3" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-									<columns>
-										<Column  importance="High">
-											<ObjectIdentifier text="Center"/>
-										</Column>
-										<Column>
-											<Text text="Availability"/>
-										</Column>
-										<Column>
-											<Text text="Availability by Dose"/>
-										</Column>
-										<Column >
-											<Text text="Age Limit"/>
-										</Column>
-										<Column >
-											<Text text="Fee Type"/>
-										</Column>
-										<Column>
-											<Text text="Vaccine"/>
-										</Column>
-										<Column importance="High">
-											<Text text="Book Slot"/>
-										</Column>
-									</columns>
-									<items>
-										<ColumnListItem>
-											<cells>
-												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-												<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-												<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-												<ObjectStatus state="Information" text="{min_age_limit}+"/>
-												<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-												<ObjectStatus state="Information" text="{vaccine}"/>
-												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-											</cells>
-										</ColumnListItem>
-									</items>
-								</Table>
+						<FlexBox
+							justifyContent="Center"
+							alignItems="Start"
+						>
+							<Panel
+								width="auto"
+								class="sapUiResponsiveMargin"
+								accessibleRole="Region"
+							>
+								<content>
+									<FlexBox
+										justifyContent="Center"
+										alignItems="Start"
+									>
+										<ComboBox
+											class="sapUiResponsiveMargin"
+											id="state"
+											items="{
+												path: '/states'
+											}"
+											placeholder="Choose State"
+											change="handleChange"
+										>
+											<core:Item
+												key="{state_id}"
+												text="{state_name}"
+											/>
+										</ComboBox>
+										<ComboBox
+											class="sapUiResponsiveMargin"
+											id="district"
+											placeholder="Choose District"
+											items="{
+												path: '/districts'
+											}"
+										>
+											<core:Item
+												key="{district_id}"
+												text="{district_name}"
+											/>
+										</ComboBox>
+									</FlexBox>
+									<FlexBox
+										justifyContent="Center"
+										alignItems="Start"
+									>
+										<DatePicker
+											id="Date2"
+											value="{dates>/dates/today}"
+											valueFormat="dd-MM-yyyy"
+											displayFormat="long"
+											showFooter="true"
+										/>
+									</FlexBox>
+									<FlexBox
+										justifyContent="Center"
+										alignItems="Start"
+									>
+										<Button
+											type="Accept"
+											text="Search"
+											press="onBtnPress1"
+										/>
+									</FlexBox>
 								</content>
 							</Panel>
-							<Panel expandable="true" headerText="{dates>/dates/today_4}" width="auto" class="sapUiResponsiveMargin">
+						</FlexBox>
+						<FlexBox
+							justifyContent="Center"
+							alignItems="Start"
+						>
+							<Panel
+								id="checboxpanel1"
+								width="auto"
+								class="sapUiResponsiveMargin"
+								accessibleRole="Region"
+								visible="false"
+							>
 								<content>
-									<Table id="table1Id4" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+									<CheckBox
+										id="check118"
+										text="18+"
+										select="onCheckbox1"
+									/>
+									<CheckBox
+										id="check145"
+										text="45+"
+										select="onCheckbox1"
+									/>
+									<CheckBox
+										id="check1covishield"
+										text="Covishield"
+										select="onCheckbox1"
+									/>
+									<CheckBox
+										id="check1covaxin"
+										text="Covaxin"
+										select="onCheckbox1"
+									/>
+									<CheckBox
+										id="check1sputnik"
+										text="Sputnik V"
+										select="onCheckbox1"
+									/>
+									<CheckBox
+										id="check1free"
+										text="Free"
+										select="onCheckbox1"
+									/>
+									<CheckBox
+										id="check1paid"
+										text="Paid"
+										select="onCheckbox1"
+									/>
+									<CheckBox
+										id="check1dose1"
+										text="Dose 1"
+										select="onCheckbox1"
+									/>
+									<CheckBox
+										id="check1dose2"
+										text="Dose 2"
+										select="onCheckbox1"
+									/>
+								</content>
+							</Panel>
+						</FlexBox>
+						<VBox
+							id="Vbox2"
+							class="sapUiResponsiveMargin"
+							visible="false"
+						>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="table1Id"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
 										<columns>
-											<Column  importance="High">
+											<Column importance="High">
 												<ObjectIdentifier text="Center"/>
 											</Column>
 											<Column>
@@ -281,10 +218,10 @@
 											<Column>
 												<Text text="Availability by Dose"/>
 											</Column>
-											<Column >
+											<Column>
 												<Text text="Age Limit"/>
 											</Column>
-											<Column >
+											<Column>
 												<Text text="Fee Type"/>
 											</Column>
 											<Column>
@@ -297,102 +234,503 @@
 										<items>
 											<ColumnListItem>
 												<cells>
-													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-													<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-													<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-													<ObjectStatus state="Information" text="{min_age_limit}+"/>
-													<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-													<ObjectStatus state="Information" text="{vaccine}"/>
-													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
 												</cells>
 											</ColumnListItem>
 										</items>
 									</Table>
-									</content>
-								</Panel>
-								<Panel expandable="true" headerText="{dates>/dates/today_5}" width="auto" class="sapUiResponsiveMargin">
-									<content>
-										<Table id="table1Id5" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-											<columns>
-												<Column  importance="High">
-													<ObjectIdentifier text="Center"/>
-												</Column>
-												<Column>
-													<Text text="Availability"/>
-												</Column>
-												<Column>
-													<Text text="Availability by Dose"/>
-												</Column>
-												<Column >
-													<Text text="Age Limit"/>
-												</Column>
-												<Column >
-													<Text text="Fee Type"/>
-												</Column>
-												<Column>
-													<Text text="Vaccine"/>
-												</Column>
-												<Column importance="High">
-													<Text text="Book Slot"/>
-												</Column>
-											</columns>
-											<items>
-												<ColumnListItem>
-													<cells>
-														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-														<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-														<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-														<ObjectStatus state="Information" text="{min_age_limit}+"/>
-														<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-														<ObjectStatus state="Information" text="{vaccine}"/>
-														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-													</cells>
-												</ColumnListItem>
-											</items>
-										</Table>
-										</content>
-									</Panel>
-									<Panel expandable="true" headerText="{dates>/dates/today_6}" width="auto" class="sapUiResponsiveMargin">
-										<content>
-											<Table id="table1Id6" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-												<columns>
-													<Column  importance="High">
-														<ObjectIdentifier text="Center"/>
-													</Column>
-													<Column>
-														<Text text="Availability"/>
-													</Column>
-													<Column >
-														<Text text="Age Limit"/>
-													</Column>
-													<Column >
-														<Text text="Fee Type"/>
-													</Column>
-													<Column>
-														<Text text="Vaccine"/>
-													</Column>
-													<Column importance="High">
-														<Text text="Book Slot"/>
-													</Column>
-												</columns>
-												<items>
-													<ColumnListItem>
-														<cells>
-															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-															<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-															<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-															<ObjectStatus state="Information" text="{min_age_limit}+"/>
-															<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-															<ObjectStatus state="Information" text="{vaccine}"/>
-															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-														</cells>
-													</ColumnListItem>
-												</items>
-											</Table>		
-										</content>
-										</Panel>
-									</VBox>
-		
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_1}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="table1Id1"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_2}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="table1Id2"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_3}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="table1Id3"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_4}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="table1Id4"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_5}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="table1Id5"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_6}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="table1Id6"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+						</VBox>
 					</Page>
 					<Page
 						id="detail2"
@@ -401,258 +739,304 @@
 						showNavButton="{device>/isPhone}"
 						navButtonPress=".onPressDetailBack"
 					>
-					<FlexBox justifyContent="Center" alignItems="Start" >
-						<Panel  width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">	
-							<content>
-								<FlexBox justifyContent="Center" alignItems="Start" >
-							<ComboBox class="sapUiResponsiveMargin" id = "state1" items ="{ path : '/states'}" placeholder = "State" change="handleChange" >
-								<core:Item key = "{state_id}" text="{state_name}" />
-							</ComboBox>
-							<ComboBox  class="sapUiResponsiveMargin" id = "district1"  placeholder = "District" items ="{ path : '/districts'}" change="handleChange1">
-							<core:Item key = "{district_id}" text="{district_name}" />
-							</ComboBox>
-							<ComboBox  class="sapUiResponsiveMargin" id = "centers"  placeholder = "Center" items ="{ path : '/centers'}">
-								<core:Item key = "{center_id}" text="{name}" />
-								</ComboBox>
+						<FlexBox
+							justifyContent="Center"
+							alignItems="Start"
+						>
+							<Panel
+								width="auto"
+								class="sapUiResponsiveMargin"
+								accessibleRole="Region"
+							>
+								<content>
+									<FlexBox
+										justifyContent="Center"
+										alignItems="Start"
+									>
+										<ComboBox
+											class="sapUiResponsiveMargin"
+											id="state1"
+											items="{
+												path: '/states'
+											}"
+											placeholder="State"
+											change="handleChange"
+										>
+											<core:Item
+												key="{state_id}"
+												text="{state_name}"
+											/>
+										</ComboBox>
+										<ComboBox
+											class="sapUiResponsiveMargin"
+											id="district1"
+											placeholder="District"
+											items="{
+												path: '/districts'
+											}"
+											change="handleChange1"
+										>
+											<core:Item
+												key="{district_id}"
+												text="{district_name}"
+											/>
+										</ComboBox>
+										<ComboBox
+											class="sapUiResponsiveMargin"
+											id="centers"
+											placeholder="Center"
+											items="{
+												path: '/centers'
+											}"
+										>
+											<core:Item
+												key="{center_id}"
+												text="{name}"
+											/>
+										</ComboBox>
+									</FlexBox>
+									<FlexBox
+										justifyContent="Center"
+										alignItems="Start"
+									>
+										<DatePicker
+											id="Date3"
+											value="{dates>/dates/today}"
+											valueFormat="dd-MM-yyyy"
+											displayFormat="long"
+											showFooter="true"
+										/>
+									</FlexBox>
+									<FlexBox
+										justifyContent="Center"
+										alignItems="Start"
+									>
+										<Button
+											type="Accept"
+											text="Search"
+											press="onBtnPress2"
+										/>
+									</FlexBox>
+								</content>
+							</Panel>
 						</FlexBox>
-						<FlexBox justifyContent="Center" alignItems="Start" >
-								<DatePicker
-									id="Date3"
-									value="{dates>/dates/today}" valueFormat="dd-MM-yyyy"
-									displayFormat="long"
-									showFooter="true"/>
-								</FlexBox>
-									<FlexBox justifyContent="Center" alignItems="Start" >
-									<Button type ="Accept" text="Search" press="onBtnPress2"></Button>	
-									</FlexBox>			
-							</content>
-						</Panel>
-
-					</FlexBox>
-				<VBox id="Vbox3" class="sapUiResponsiveMargin" visible= "false">
-					<FlexBox justifyContent="Center" alignItems="Start" >
-						<GenericTile class="tileLayout" header="{center>/centers/name}"
-						frameType="TwoByOne">
-						<TileContent footer="Timing: {center>/centers/from} to {center>/centers/to}">
-							<FeedContent contentText="{center>/centers/address},{center>/centers/block_name}, {center>/centers/district_name}"
-								subheader="{center>/centers/state_name}, {center>/centers/pincode}" value="{center>/centers/fee_type}" />
-						</TileContent>
-					</GenericTile>
-				</FlexBox>
-						<Panel width="auto" class="sapUiResponsiveMargin">
-					<content>
-						
-						<Table id="table2Id" inset="false" items="{/centers/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-							<columns>
-								<Column  importance="High">
-									<ObjectIdentifier text="Date"/>
-								</Column>
-								<Column importance="Medium">
-									<Text text="Availability"/>
-								</Column>
-								<Column>
-									<Text text="Availability by Dose"/>
-								</Column>
-								<Column >
-									<Text text="Age Limit"/>
-								</Column>
-								<Column>
-									<Text text="Vaccine"/>
-								</Column>
-								<Column importance="High">
-									<Text text="Book Slot"/>
-								</Column>
-							</columns>
-							<items>
-								<ColumnListItem>
-									<cells>
-										<ObjectStatus state="Information" text="{date}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-										<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-										<ObjectStatus state="Information" text="{min_age_limit}+"/>
-										<ObjectStatus state="Information" text="{vaccine}"/>
-										<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-									</cells>
-								</ColumnListItem>
-							</items>
-						</Table>
-					</content>
-				</Panel>
-			</VBox>
-		
+						<VBox
+							id="Vbox3"
+							class="sapUiResponsiveMargin"
+							visible="false"
+						>
+							<FlexBox
+								justifyContent="Center"
+								alignItems="Start"
+							>
+								<GenericTile
+									class="tileLayout"
+									header="{center>/centers/name}"
+									frameType="TwoByOne"
+								>
+									<TileContent footer="Timing: {center>/centers/from} to {center>/centers/to}">
+										<FeedContent
+											contentText="{center>/centers/address},{center>/centers/block_name}, {center>/centers/district_name}"
+											subheader="{center>/centers/state_name}, {center>/centers/pincode}"
+											value="{center>/centers/fee_type}"
+										/>
+									</TileContent>
+								</GenericTile>
+							</FlexBox>
+							<Panel
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="table2Id"
+										inset="false"
+										items="{/centers/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Date"/>
+											</Column>
+											<Column importance="Medium">
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectStatus
+														state="Information"
+														text="{date}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+						</VBox>
 					</Page>
 					<Page
 						id="detail3"
 						title="Search Slots by Pincode"
 						backgroundDesign="Solid"
 						showNavButton="{device>/isPhone}"
-						navButtonPress=".onPressDetailBack">
-						<FlexBox justifyContent="Center" alignItems="Start" >
-							<Panel  width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">	
+						navButtonPress=".onPressDetailBack"
+					>
+						<FlexBox
+							justifyContent="Center"
+							alignItems="Start"
+						>
+							<Panel
+								width="auto"
+								class="sapUiResponsiveMargin"
+								accessibleRole="Region"
+							>
 								<content>
-								<Input id = "pincode" maxLength="6" type="Number" placeholder = " Enter Pincode" />
+									<Input
+										id="pincode"
+										maxLength="6"
+										type="Number"
+										placeholder=" Enter Pincode"
+									/>
 									<DatePicker
 										id="Date1"
-										value="{dates>/dates/today}" valueFormat="dd-MM-yyyy"
+										value="{dates>/dates/today}"
+										valueFormat="dd-MM-yyyy"
 										displayFormat="long"
-										showFooter="true"/>
-										<FlexBox justifyContent="Center" alignItems="Start" >
-										<Button type ="Accept" text="Search" press="onBtnPress"></Button>	
-										</FlexBox>			
+										showFooter="true"
+									/>
+									<FlexBox
+										justifyContent="Center"
+										alignItems="Start"
+									>
+										<Button
+											type="Accept"
+											text="Search"
+											press="onBtnPress"
+										/>
+									</FlexBox>
 								</content>
 							</Panel>
 						</FlexBox>
-						<FlexBox justifyContent="Center" alignItems="Start" >
-						<Panel id="checboxpanel" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region" visible="false">
-							<content>
-						<CheckBox
-						    id = "check18"
-							text="18+"
-							select="onCheckbox"
-						/>
-						<CheckBox id = "check45" text="45+" select="onCheckbox"/>
-						<CheckBox id = "checkcovishield" text="Covishield" select="onCheckbox"/>
-						<CheckBox id = "checkcovaxin" text="Covaxin" select="onCheckbox"/>
-						<CheckBox id = "checksputnik" text="Sputnik V" select="onCheckbox"/>
-						<CheckBox id = "checkfree" text="Free" select="onCheckbox"/>
-						<CheckBox id = "checkpaid" text="Paid" select="onCheckbox"/>
-						<CheckBox id = "checkdose1" text="Dose 1" select="onCheckbox"/>
-						<CheckBox id = "checkdose2" text="Dose 2" select="onCheckbox"/>
-				</content>
-			</Panel>
-		</FlexBox>
-					<VBox id="Vbox1" class="sapUiResponsiveMargin" visible= "false">
-							<Panel expandable="true" headerText="{dates>/dates/today}" width="auto" class="sapUiResponsiveMargin">
-						<content>
-							<Table id="tableId" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-								<columns>
-									<Column  importance="High">
-										<ObjectIdentifier text="Center"/>
-									</Column>
-									<Column>
-										<Text text="Availability"/>
-									</Column>
-									<Column>
-										<Text text="Availability by Dose"/>
-									</Column>
-									<Column >
-										<Text text="Age Limit"/>
-									</Column>
-									<Column >
-										<Text text="Fee Type"/>
-									</Column>
-									<Column>
-										<Text text="Vaccine"/>
-									</Column>
-									<Column importance="High">
-										<Text text="Book Slot"/>
-									</Column>
-								</columns>
-								<items>
-									<ColumnListItem>
-										<cells>
-											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-											<ObjectStatus state="Information" text="{min_age_limit}+"/>
-											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-											<ObjectStatus state="Information" text="{vaccine}"/>
-											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-										</cells>
-									</ColumnListItem>
-								</items>
-							</Table>
-						</content>
-					</Panel>
-					<Panel expandable="true" headerText="{dates>/dates/today_1}" width="auto" class="sapUiResponsiveMargin">
-						<content>
-							<Table id="tableId1" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-								<columns>
-									<Column  importance="High">
-										<ObjectIdentifier text="Center"/>
-									</Column>
-									<Column>
-										<Text text="Availability"/>
-									</Column>
-									<Column>
-										<Text text="Availability by Dose"/>
-									</Column>
-									<Column >
-										<Text text="Age Limit"/>
-									</Column>
-									<Column >
-										<Text text="Fee Type"/>
-									</Column>
-									<Column>
-										<Text text="Vaccine"/>
-									</Column>
-									<Column importance="High">
-										<Text text="Book Slot"/>
-									</Column>
-								</columns>
-								<items>
-									<ColumnListItem>
-										<cells>
-											<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-											<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-											<ObjectStatus state="Information" text="{min_age_limit}+"/>
-											<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-											<ObjectStatus state="Information" text="{vaccine}"/>
-											<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-										</cells>
-									</ColumnListItem>
-							</items>
-							</Table>
-							</content>
-						</Panel>
-						<Panel expandable="true" headerText="{dates>/dates/today_2}" width="auto" class="sapUiResponsiveMargin">
-							<content>
-								<Table id="tableId2" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-									<columns>
-										<Column  importance="High">
-											<ObjectIdentifier text="Center"/>
-										</Column>
-										<Column>
-											<Text text="Availability"/>
-										</Column>
-										<Column>
-											<Text text="Availability by Dose"/>
-										</Column>
-										<Column >
-											<Text text="Age Limit"/>
-										</Column>
-										<Column >
-											<Text text="Fee Type"/>
-										</Column>
-										<Column>
-											<Text text="Vaccine"/>
-										</Column>
-										<Column importance="High">
-											<Text text="Book Slot"/>
-										</Column>
-									</columns>
-									<items>
-										<ColumnListItem>
-											<cells>
-												<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-												<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-												<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-												<ObjectStatus state="Information" text="{min_age_limit}+"/>
-												<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-												<ObjectStatus state="Information" text="{vaccine}"/>
-												<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-											</cells>
-										</ColumnListItem>
-												</items>
-								</Table>
+						<FlexBox
+							justifyContent="Center"
+							alignItems="Start"
+						>
+							<Panel
+								id="checboxpanel"
+								width="auto"
+								class="sapUiResponsiveMargin"
+								accessibleRole="Region"
+								visible="false"
+							>
+								<content>
+									<CheckBox
+										id="check18"
+										text="18+"
+										select="onCheckbox"
+									/>
+									<CheckBox
+										id="check45"
+										text="45+"
+										select="onCheckbox"
+									/>
+									<CheckBox
+										id="checkcovishield"
+										text="Covishield"
+										select="onCheckbox"
+									/>
+									<CheckBox
+										id="checkcovaxin"
+										text="Covaxin"
+										select="onCheckbox"
+									/>
+									<CheckBox
+										id="checksputnik"
+										text="Sputnik V"
+										select="onCheckbox"
+									/>
+									<CheckBox
+										id="checkfree"
+										text="Free"
+										select="onCheckbox"
+									/>
+									<CheckBox
+										id="checkpaid"
+										text="Paid"
+										select="onCheckbox"
+									/>
+									<CheckBox
+										id="checkdose1"
+										text="Dose 1"
+										select="onCheckbox"
+									/>
+									<CheckBox
+										id="checkdose2"
+										text="Dose 2"
+										select="onCheckbox"
+									/>
 								</content>
 							</Panel>
-							<Panel expandable="true" headerText="{dates>/dates/today_3}" width="auto" class="sapUiResponsiveMargin">
+						</FlexBox>
+						<VBox
+							id="Vbox1"
+							class="sapUiResponsiveMargin"
+							visible="false"
+						>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
 								<content>
-									<Table id="tableId3" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
+									<Table
+										id="tableId"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
 										<columns>
-											<Column  importance="High">
+											<Column importance="High">
 												<ObjectIdentifier text="Center"/>
 											</Column>
 											<Column>
@@ -661,10 +1045,10 @@
 											<Column>
 												<Text text="Availability by Dose"/>
 											</Column>
-											<Column >
+											<Column>
 												<Text text="Age Limit"/>
 											</Column>
-											<Column >
+											<Column>
 												<Text text="Fee Type"/>
 											</Column>
 											<Column>
@@ -677,146 +1061,539 @@
 										<items>
 											<ColumnListItem>
 												<cells>
-													<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-													<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-													<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-													<ObjectStatus state="Information" text="{min_age_limit}+"/>
-													<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-													<ObjectStatus state="Information" text="{vaccine}"/>
-													<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
 												</cells>
 											</ColumnListItem>
-									</items>
+										</items>
 									</Table>
-									</content>
-								</Panel>
-								<Panel expandable="true" headerText="{dates>/dates/today_4}" width="auto" class="sapUiResponsiveMargin">
-									<content>
-										<Table id="tableId4" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-											<columns>
-												<Column  importance="High">
-													<ObjectIdentifier text="Center"/>
-												</Column>
-												<Column>
-													<Text text="Availability"/>
-												</Column>
-												<Column>
-													<Text text="Availability by Dose"/>
-												</Column>
-												<Column >
-													<Text text="Age Limit"/>
-												</Column>
-												<Column >
-													<Text text="Fee Type"/>
-												</Column>
-												<Column>
-													<Text text="Vaccine"/>
-												</Column>
-												<Column importance="High">
-													<Text text="Book Slot"/>
-												</Column>
-											</columns>
-											<items>
-												<ColumnListItem>
-													<cells>
-														<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-														<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-														<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-														<ObjectStatus state="Information" text="{min_age_limit}+"/>
-														<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-														<ObjectStatus state="Information" text="{vaccine}"/>
-														<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-													</cells>
-												</ColumnListItem>
-										 </items>
-										</Table>
-										</content>
-									</Panel>
-									<Panel expandable="true" headerText="{dates>/dates/today_5}" width="auto" class="sapUiResponsiveMargin">
-										<content>
-											<Table id="tableId5" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-												<columns>
-													<Column  importance="High">
-														<ObjectIdentifier text="Center"/>
-													</Column>
-													<Column>
-														<Text text="Availability"/>
-													</Column>
-													<Column>
-														<Text text="Availability by Dose"/>
-													</Column>
-													<Column >
-														<Text text="Age Limit"/>
-													</Column>
-													<Column >
-														<Text text="Fee Type"/>
-													</Column>
-													<Column>
-														<Text text="Vaccine"/>
-													</Column>
-													<Column importance="High">
-														<Text text="Book Slot"/>
-													</Column>
-												</columns>
-												<items>
-													<ColumnListItem>
-														<cells>
-															<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-															<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-															<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-															<ObjectStatus state="Information" text="{min_age_limit}+"/>
-															<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-															<ObjectStatus state="Information" text="{vaccine}"/>
-															<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-														</cells>
-													</ColumnListItem>
-																				</items>
-											</Table>
-											</content>
-										</Panel>
-										<Panel expandable="true" headerText="{dates>/dates/today_6}" width="auto" class="sapUiResponsiveMargin">
-											<content>
-												<Table id="tableId6" inset="false" items="{/sessions}" class="sapUiResponsiveMargin" autoPopinMode="true">
-													<columns>
-														<Column  importance="High">
-															<ObjectIdentifier text="Center"/>
-														</Column>
-														<Column>
-															<Text text="Availability"/>
-														</Column>
-														<Column>
-															<Text text="Availability by Dose"/>
-														</Column>
-														<Column >
-															<Text text="Age Limit"/>
-														</Column>
-														<Column >
-															<Text text="Fee Type"/>
-														</Column>
-														<Column>
-															<Text text="Vaccine"/>
-														</Column>
-														<Column importance="High">
-															<Text text="Book Slot"/>
-														</Column>
-													</columns>
-													<items>
-														<ColumnListItem>
-															<cells>
-																<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-																<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
-																<ObjectStatus state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }" text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
-																<ObjectStatus state="Information" text="{min_age_limit}+"/>
-																<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-																<ObjectStatus state="Information" text="{vaccine}"/>
-																<Link text="{= ${available_capacity} !== 0 ? 'Book' : '' }" href="https://selfregistration.cowin.gov.in/"/>
-															</cells>
-														</ColumnListItem>
-												</items>
-												</Table>		
-											</content>
-											</Panel>
-										</VBox>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_1}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="tableId1"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_2}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="tableId2"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_3}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="tableId3"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_4}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="tableId4"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_5}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="tableId5"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+							<Panel
+								expandable="true"
+								headerText="{dates>/dates/today_6}"
+								width="auto"
+								class="sapUiResponsiveMargin"
+							>
+								<content>
+									<Table
+										id="tableId6"
+										inset="false"
+										items="{/sessions}"
+										class="sapUiResponsiveMargin"
+										autoPopinMode="true"
+									>
+										<columns>
+											<Column importance="High">
+												<ObjectIdentifier text="Center"/>
+											</Column>
+											<Column>
+												<Text text="Availability"/>
+											</Column>
+											<Column>
+												<Text text="Availability by Dose"/>
+											</Column>
+											<Column>
+												<Text text="Age Limit"/>
+											</Column>
+											<Column>
+												<Text text="Fee Type"/>
+											</Column>
+											<Column>
+												<Text text="Vaccine"/>
+											</Column>
+											<Column importance="High">
+												<Text text="Book Slot"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<ObjectIdentifier
+														title="{name}"
+														text="{address},{block_name}, {district_name}, {state_name}, {pincode}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="{
+															path: 'available_capacity',
+															formatter: '.formatter.available_capacity'
+														}"
+													/>
+													<ObjectStatus
+														state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+														text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{min_age_limit}+"
+													/>
+													<ObjectStatus
+														state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }"
+														text="{fee_type}"
+													/>
+													<ObjectStatus
+														state="Information"
+														text="{vaccine}"
+													/>
+													<Link
+														text="{= ${available_capacity} !== 0 ? 'Book' : '' }"
+														href="https://selfregistration.cowin.gov.in/"
+													/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</content>
+							</Panel>
+						</VBox>
+					</Page>
+					<Page
+						id="detail4"
+						title="Search Slots by Map Location"
+						backgroundDesign="Solid"
+						showNavButton="{device>/isPhone}"
+						navButtonPress=".onPressDetailBack"
+					>
+						<l:FixFlex
+							class="fixFlexVertical"
+							fixFirst="true"
+						>
+							<l:flexContent>
+								<vk:MapContainer autoAdjustHeight="true">
+									<vk:content>
+										<vk:ContainerContent
+											title="Geographic Map"
+											icon="sap-icon://map-2"
+										>
+											<vk:content>
+												<vbm:GeoMap
+													id="geoMap"
+													initialZoom="14"
+													initialPosition="91.75291109698401;26.161197999999995;0.0"
+													click=".onMapClick"
+													
+												/>
+											</vk:content>
+										</vk:ContainerContent>
+									</vk:content>
+								</vk:MapContainer>
+							</l:flexContent>
+						</l:FixFlex>
 					</Page>
 				</detailPages>
 				<masterPages>
@@ -824,14 +1601,14 @@
 						id="master2"
 						title="Navigation Menu"
 						backgroundDesign="List"
-					>					
+					>
 						<List itemPress=".onListItemPress">
 							<items>
 								<StandardListItem
-								title="Vaccination Statistics"
-								type="Active"
-								custom:to="detail"
-							/>
+									title="Vaccination Statistics"
+									type="Active"
+									custom:to="detail"
+								/>
 								<StandardListItem
 									title="Slots By Pincode"
 									type="Active"
@@ -846,6 +1623,12 @@
 									title="Slots By Center"
 									type="Active"
 									custom:to="detail2"
+								/>
+								<StandardListItem
+									title="Slots By Map Location"
+									type="Active"
+									custom:to="detail4"
+									press=".loadMap"
 								/>
 							</items>
 						</List>
