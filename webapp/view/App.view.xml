@@ -1569,31 +1569,23 @@
 						showNavButton="{device>/isPhone}"
 						navButtonPress=".onPressDetailBack"
 					>
-						<l:FixFlex
-							class="fixFlexVertical"
-							fixFirst="true"
-						>
-							<l:flexContent>
-								<vk:MapContainer autoAdjustHeight="true">
+						<vk:MapContainer autoAdjustHeight="true">
+							<vk:content>
+								<vk:ContainerContent
+									title="Geographic Map"
+									icon="sap-icon://map-2"
+								>
 									<vk:content>
-										<vk:ContainerContent
-											title="Geographic Map"
-											icon="sap-icon://map-2"
-										>
-											<vk:content>
-												<vbm:GeoMap
-													id="geoMap"
-													initialZoom="14"
-													initialPosition="91.75291109698401;26.161197999999995;0.0"
-													click=".onMapClick"
-													
-												/>
-											</vk:content>
-										</vk:ContainerContent>
+										<vbm:GeoMap
+											id="geoMap"
+											initialZoom="14"
+											initialPosition="91.75291109698401;26.161197999999995;0.0"
+											click=".onMapClick"
+										/>
 									</vk:content>
-								</vk:MapContainer>
-							</l:flexContent>
-						</l:FixFlex>
+								</vk:ContainerContent>
+							</vk:content>
+						</vk:MapContainer>
 					</Page>
 				</detailPages>
 				<masterPages>
