@@ -4,17 +4,21 @@ sap.ui.define([
 	"sap/ui/Device",
 	"sap/base/Log",
 	"sap/ui/demo/todo/model/formatter",
-	"sap/m/MessageBox"
+	"sap/m/MessageBox",
+	"sap/m/BusyDialog"
 ], function (MessageToast,
 	Controller,
 	Device,
 	Log,
-	formatter) {
+	formatter,
+	MessageBox,
+	BusyDialog) {
 	"use strict";
 
 	return Controller.extend("sap.ui.demo.todo.controller.App.controllers	", {
 		formatter: formatter,
 		onInit: function () {
+			this.initialLoad = true;
 			this.getSplitAppObj().setHomeIcon({
 				'phone': 'phone-icon.png',
 				'tablet': 'tablet-icon.png',
@@ -578,8 +582,14 @@ sap.ui.define([
 			oBinding6.filter(filterArray);
 		},
 		loadMap: function (oEvent) {
+			if (this.initialLoad == true) {
+			var oBusyDialog = new sap.m.BusyDialog({
+				title:"Loading Map for the first time",
+				text:"Now loading the Vaccination centers for your location"
+			});
+		}
+			oBusyDialog.open();
 			var that = this;
-			//var location = localStorage.getItem('location');
 			var location;
 			console.log(location);
 			//if (location == 'null' || location == null) {
@@ -670,7 +680,7 @@ sap.ui.define([
 					oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
 					var oData = oVaccineCenters.getData();
 					var index = getIndex(pos[0], pos[1], oData.centers) ? getIndex(pos[0], pos[1], oData.centers) : 0;
-					oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: oData.centers[index].name, offsetX: 0, offsetY: 0, });
+					oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: "Center: "+oData.centers[index].name, offsetX: 0, offsetY: 0, });
 				};
 				function getIndex(long, lat, centers) {
 					for (var i = 0; i < centers.length; i++) {
@@ -695,6 +705,14 @@ sap.ui.define([
 				oGeoMap.setInitialPosition(location);
 				oGeoMap.getModel().updateBindings();
 			}
+			if (this.initialLoad == true){
+			setTimeout(function () {
+				oBusyDialog.close();
+			}, 3000);
+		}
+		this.initialLoad = false;
+			
+
 		},
 		onMapClick: function (details) {
 			var oGeoMap = this.getView().byId("geoMap");
