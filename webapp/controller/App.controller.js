@@ -690,7 +690,6 @@ sap.ui.define([
 						}
 					}
 				};
-				console.log(oSpotTemplate);
 				// Create Spot collection and bind to GeoMap
 				var oSpotsCollection = new sap.ui.vbm.Spots({
 					items: {
