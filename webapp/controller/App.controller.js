@@ -5,14 +5,18 @@ sap.ui.define([
 	"sap/base/Log",
 	"sap/ui/demo/todo/model/formatter",
 	"sap/m/MessageBox",
-	"sap/m/BusyDialog"
+	"sap/m/BusyDialog",
+	"sap/m/TileContent",
+	"sap/m/FeedContent"
 ], function (MessageToast,
 	Controller,
 	Device,
 	Log,
 	formatter,
 	MessageBox,
-	BusyDialog) {
+	BusyDialog,
+	TileContent,
+	FeedContent) {
 	"use strict";
 
 	return Controller.extend("sap.ui.demo.todo.controller.App.controllers	", {
@@ -670,17 +674,55 @@ sap.ui.define([
 					type: sap.ui.vbm.SemanticType.Success,
 					icon: "sap-icon://syringe",
 					selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
-					click: onClick
+					click: onClick,
+					tooltip:"{myloc>/centers/name}"
 
 				});
 				// When a user clicks on a spot, center the map and display a detail window
+				var oMenu = new sap.ui.vbm.Containers(); 
+				oGeoMap.addVo(oMenu);
 				function onClick(oEvent) {
+					oMenu.removeAllItems();
+					var today = new Date();
+					today.setDate(today.getDate());
+					var dd = today.getDate();
+					var mm = today.getMonth() + 1;
+					var yyyy = today.getFullYear();
+					if (dd < 10) {
+						dd = '0' + dd;
+					}
+					if (mm < 10) {
+						mm = '0' + mm;
+					}
+					today = dd + '-' + mm + '-' + yyyy;
+
 					var clickedSpot = oEvent.getSource();
-					var pos = clickedSpot.getPosition().split(";");
+					var coord = clickedSpot.getPosition();
+					var pos = coord.split(";");
 					oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
 					var oData = oVaccineCenters.getData();
 					var index = getIndex(pos[0], pos[1], oData.centers) ? getIndex(pos[0], pos[1], oData.centers) : 0;
-					oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: "Center: "+oData.centers[index].name, offsetX: 0, offsetY: 0, });
+					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + oData.centers[index].center_id + "&date=" + today;
+					var oCenterModel = new sap.ui.model.json.JSONModel(sPath);
+					that.getView().setModel(oCenterModel, "center");
+					var oTile = new sap.m.GenericTile({
+						header: oData.centers[index].name,
+						frameType:sap.m.FrameType.TwoByone
+					}).addStyleClass("tileLayout");
+					console.log(oCenterModel.getData());
+					var oTileContent = new sap.m.TileContent();
+					var oFeedContent = new sap.m.FeedContent({
+							contentText:"{center>/centers/address}",
+							subheader:"{center>/centers/from}",
+							value:"{center>/centers/fee_type}",
+					});
+					oTileContent.setContent(oFeedContent);
+					oTile.addTileContent(oTileContent);
+					var oMenuContainer = new sap.ui.vbm.Container();
+					oMenuContainer.setPosition(coord);
+					oMenuContainer.setItem(oTile);
+					oMenu.addItem(oMenuContainer);
+					
 				};
 				function getIndex(long, lat, centers) {
 					for (var i = 0; i < centers.length; i++) {
@@ -714,6 +756,7 @@ sap.ui.define([
 
 		},
 		onMapClick: function (details) {
+			var that = this;
 			var oGeoMap = this.getView().byId("geoMap");
 			oGeoMap.destroyVos();
 			console.log("clicked");
@@ -741,21 +784,58 @@ sap.ui.define([
 				type: sap.ui.vbm.SemanticType.Success,
 				icon: "sap-icon://syringe",
 				selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
-				click: onClick
+				click: onClick,
+				tooltip:"{vaccinecenters>/centers/name}"
 
 			});
-			// When a user clicks on a spot, center the map and display a detail window
-			function onClick(oEvent) {
-				var clickedSpot = oEvent.getSource();
-				console.log(clickedSpot);
-				var pos = clickedSpot.getPosition().split(";");
-				oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
-				var oData = oVaccineCenters.getData();
-				console.log(oData.centers[0]);
-				var index = getIndex(pos[0], pos[1], oData.centers) ? getIndex(pos[0], pos[1], oData.centers) : 0;
-				console.log(index);
-				oGeoMap.openDetailWindow(clickedSpot.getPosition(), { caption: oData.centers[index].name, offsetX: 0, offsetY: 0, });
-			};
+				// When a user clicks on a spot, center the map and display a detail window
+				var oMenu = new sap.ui.vbm.Containers({
+					maxSel: "4"
+				}); 
+				oGeoMap.addVo(oMenu);
+				function onClick(oEvent) {
+					oMenu.removeAllItems();
+					var today = new Date();
+					today.setDate(today.getDate());
+					var dd = today.getDate();
+					var mm = today.getMonth() + 1;
+					var yyyy = today.getFullYear();
+					if (dd < 10) {
+						dd = '0' + dd;
+					}
+					if (mm < 10) {
+						mm = '0' + mm;
+					}
+					today = dd + '-' + mm + '-' + yyyy;
+
+					var clickedSpot = oEvent.getSource();
+					var coord = clickedSpot.getPosition();
+					var pos = coord.split(";");
+					oGeoMap.zoomToGeoPosition(pos[0], pos[1], oGeoMap.getZoomlevel());
+					var oData = oVaccineCenters.getData();
+					var index = getIndex(pos[0], pos[1], oData.centers) ? getIndex(pos[0], pos[1], oData.centers) : 0;
+					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + oData.centers[index].center_id + "&date=" + today;
+					var oCenterModel = new sap.ui.model.json.JSONModel(sPath);
+					that.getView().setModel(oCenterModel, "center");
+					var oTile = new sap.m.GenericTile({
+						header: oData.centers[index].name,
+						frameType:sap.m.FrameType.TwoByone
+					}).addStyleClass("tileLayout");
+					console.log(oCenterModel.getData());
+					var oTileContent = new sap.m.TileContent();
+					var oFeedContent = new sap.m.FeedContent({
+							contentText:"{center>/centers/address}",
+							subheader:"{center>/centers/from}",
+							value:"{center>/centers/fee_type}",
+					});
+					oTileContent.setContent(oFeedContent);
+					oTile.addTileContent(oTileContent);
+					var oMenuContainer = new sap.ui.vbm.Container();
+					oMenuContainer.setPosition(coord);
+					oMenuContainer.setItem(oTile);
+					oMenu.addItem(oMenuContainer);
+					
+				};
 			function getIndex(long, lat, centers) {
 				for (var i = 0; i < centers.length; i++) {
 					if (centers[i].lat == lat && centers[i].long == long) {
