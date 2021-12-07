@@ -675,9 +675,18 @@ sap.ui.define([
 					icon: "sap-icon://syringe",
 					selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
 					click: onClick,
-					tooltip:"{myloc>/centers/name}"
+					tooltip:"Vaccination Center"
 
 				});
+				var oSpotTemplate1 = new sap.ui.vbm.Spot({
+					position: location,
+					type: sap.ui.vbm.SemanticType.Error,
+					icon: "sap-icon://employee",
+					selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
+					tooltip:"My Location"
+
+				});
+				that.globalLocation = location;
 				// When a user clicks on a spot, center the map and display a detail window
 				var oMenu = new sap.ui.vbm.Containers(); 
 				oGeoMap.addVo(oMenu);
@@ -739,9 +748,14 @@ sap.ui.define([
 						template: oSpotTemplate
 					}
 				});
+				var oSpotsCollection1 = new sap.ui.vbm.Spots({
+				});
+
+				oSpotsCollection1.addItem(oSpotTemplate1)
 
 				oGeoMap.setMapConfiguration(oMapConfig);
 				oGeoMap.addVo(oSpotsCollection);
+				oGeoMap.addVo(oSpotsCollection1);
 				oGeoMap.setInitialZoom(14);
 				oGeoMap.setInitialPosition(location);
 				oGeoMap.getModel().updateBindings();
@@ -753,9 +767,10 @@ sap.ui.define([
 		}
 		this.initialLoad = false;
 			
-
+		
 		},
 		onMapClick: function (details) {
+			console.log(this.globalLocation);
 			var that = this;
 			var oGeoMap = this.getView().byId("geoMap");
 			oGeoMap.destroyVos();
@@ -785,7 +800,23 @@ sap.ui.define([
 				icon: "sap-icon://syringe",
 				selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
 				click: onClick,
-				tooltip:"{vaccinecenters>/centers/name}"
+				tooltip:"Vaccination Center"
+
+			});
+			var oSpotTemplate1 = new sap.ui.vbm.Spot({
+				position: this.globalLocation,
+				type: sap.ui.vbm.SemanticType.Error,
+				icon: "sap-icon://employee",
+				selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
+				tooltip:"My Location"
+
+			});
+			var oSpotTemplate2 = new sap.ui.vbm.Spot({
+				position: pos,
+				type: sap.ui.vbm.SemanticType.Default,
+				icon: "sap-icon://cursor-arrow",
+				selectColor: 'RHLSA(0;1.0;5;1.0)', // Relative selection color - multiplication factors
+				tooltip:"Selected Location"
 
 			});
 				// When a user clicks on a spot, center the map and display a detail window
@@ -852,9 +883,13 @@ sap.ui.define([
 					template: oSpotTemplate
 				}
 			});
-			//oSpotsCollection.addItem(oSpotTemplate1);
-			console.log(oSpotsCollection);
+			var oSpotsCollection1 = new sap.ui.vbm.Spots({
+			});
+			oSpotsCollection1.addItem(oSpotTemplate1);
+			oSpotsCollection1.addItem(oSpotTemplate2)
+			//console.log(oSpotsCollection);
 			oGeoMap.addVo(oSpotsCollection);
+			oGeoMap.addVo(oSpotsCollection1);
 		}
 
 	});

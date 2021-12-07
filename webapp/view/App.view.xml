@@ -1568,8 +1568,22 @@
 						backgroundDesign="Solid"
 						showNavButton="{device>/isPhone}"
 						navButtonPress=".onPressDetailBack"
-					>
+					>   
 						<vk:MapContainer autoAdjustHeight="true">
+							<vk:listPanelStack>
+								<vk:ListPanelStack width="230px">
+									<vk:content>
+										<vk:ListPanel headerText="Legend" selectionMode="SingleSelectMaster"
+											headerIcon="sap-icon://legend" expanded="true">
+											<vk:items>
+												<vk:LegendItem title="My Location" color="rgb(211,32,48)" icon="sap-icon://map"/>
+												<vk:LegendItem title="Selected Location" color="rgb(0,0,255)" icon="sap-icon://map"/>
+												<vk:LegendItem title="Vaccination Center"  color="rgb(97,166,86)" icon="sap-icon://map"/>
+											</vk:items>
+										</vk:ListPanel>
+									</vk:content>
+								</vk:ListPanelStack>
+							</vk:listPanelStack>
 							<vk:content>
 								<vk:ContainerContent
 									title="Geographic Map"
@@ -1581,7 +1595,8 @@
 											initialZoom="14"
 											initialPosition="91.75291109698401;26.161197999999995;0.0"
 											click=".onMapClick"
-										/>
+										>
+									</vbm:GeoMap>
 									</vk:content>
 								</vk:ContainerContent>
 							</vk:content>
